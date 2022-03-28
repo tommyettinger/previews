@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.tommyettinger.ds.ObjectList;
+import com.github.yellowstonegames.grid.IntPointHash;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -25,6 +26,7 @@ public class Main extends ApplicationAdapter {
     public Viewport viewport;
     public long startTime;
     public ObjectList<Animation<Sprite>> terrain, infantry;
+    public int seed = 1234;
 
     @Override
     public void create() {
@@ -59,16 +61,24 @@ public class Main extends ApplicationAdapter {
 //        batch.setColor((208 + (time>>>12)%12)/255f, 0.5f, 0.5f, 1f);
 //        batch.setColor((time >>> 12) % 208 / 255f, 0.5f, 0.5f, 1f);
 
-        int angle = (int) (time >>> 10 & 3);
-        Sprite s = terrain.get(angle).getKeyFrame(time * 1e-3f);
-        s.setPosition(0, 0);
-        s.setColor((208 + (time>>>12)%12)/255f, 0.5f, 0.5f, 1f);
-        s.draw(batch);
-//        angle = (int) (time >>> 10 & 3);
-        s = infantry.get(angle).getKeyFrame(time * 1e-3f);
-        s.setPosition(0, 0);
-        s.setColor((time >>> 12) % 208 / 255f, 0.5f, 0.5f, 1f);
-        s.draw(batch);
+        int angle;
+        Sprite s;
+        for (int x = 19; x >= 0; x--) {
+            for (int y = 19; y >= 0; y--) {
+                int hash = IntPointHash.hashAll(x, y, seed);
+                s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
+                s.setPosition((x - y) * 60 + 320, (x + y) * 30);
+                s.setColor((208 + (hash>>>2) % 12) / 255f, 0.5f, 0.5f, 1f);
+                s.draw(batch);
+                if((x & y & 1) == 1) {
+                    angle = (int) (time - hash >>> 10 & 3);
+                    s = infantry.get(angle).getKeyFrame(time * 1e-3f);
+                    s.setPosition((x - y) * 60 + 320, (x + y) * 30);
+                    s.setColor((hash >>> 6) % 208 / 255f, 0.5f, 0.5f, 1f);
+                    s.draw(batch);
+                }
+            }
+        }
         batch.end();
 
     }
