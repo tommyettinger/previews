@@ -25,7 +25,8 @@ public class Main extends ApplicationAdapter {
     public ShaderProgram shader;
     public Viewport viewport;
     public long startTime;
-    public ObjectList<Animation<Sprite>> terrain, infantry;
+    public ObjectList<Animation<Sprite>> terrain;
+    public ObjectList<ObjectList<Animation<Sprite>>> units;
     public int seed = 1234;
 
     @Override
@@ -37,10 +38,16 @@ public class Main extends ApplicationAdapter {
         palettes = new Texture("ColorGuardMasterPalette.png");
         startTime = TimeUtils.millis();
         terrain = new ObjectList<>(4);
-        infantry = new ObjectList<>(4);
+        units = new ObjectList<>(ColorGuardData.units.size());
         for (int i = 0; i < 4; i++) {
-            terrain.add(new Animation<>(0.04f, atlas.createSprites("Terrain_angle" + i)));
-            infantry.add(new Animation<>(0.16f, atlas.createSprites("Infantry_angle" + i)));
+            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
+        }
+        for (int i = 0; i < ColorGuardData.units.size(); i++) {
+            String unit = ColorGuardData.units.get(i).name;
+            units.add(new ObjectList<>(4));
+            for (int a = 0; a < 4; a++) {
+                units.peek().add(new Animation<>(0.125f, atlas.createSprites(unit + "_angle" + a), Animation.PlayMode.LOOP));
+            }
         }
     }
 
@@ -72,7 +79,7 @@ public class Main extends ApplicationAdapter {
                 s.draw(batch);
                 if((x & y & 1) == 1) {
                     angle = (int) (time - hash >>> 10 & 3);
-                    s = infantry.get(angle).getKeyFrame(time * 1e-3f);
+                    s = units.get((hash>>>16)%units.size()).get(angle).getKeyFrame(time * 1e-3f);
                     s.setPosition((x - y) * 60 + 320, (x + y) * 30);
                     s.setColor((hash >>> 6) % 208 / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
