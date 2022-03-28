@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -23,7 +24,7 @@ public class Main extends ApplicationAdapter {
     public ShaderProgram shader;
     public Viewport viewport;
     public long startTime;
-    public ObjectList<Animation<TextureAtlas.AtlasRegion>> terrain;
+    public ObjectList<Animation<Sprite>> terrain, infantry;
 
     @Override
     public void create() {
@@ -34,8 +35,10 @@ public class Main extends ApplicationAdapter {
         palettes = new Texture("ColorGuardMasterPalette.png");
         startTime = TimeUtils.millis();
         terrain = new ObjectList<>(4);
+        infantry = new ObjectList<>(4);
         for (int i = 0; i < 4; i++) {
-            terrain.add(new Animation<>(0.16f, atlas.findRegions("Terrain_angle" + i)));
+            terrain.add(new Animation<>(0.04f, atlas.createSprites("Terrain_angle" + i)));
+            infantry.add(new Animation<>(0.16f, atlas.createSprites("Infantry_angle" + i)));
         }
     }
 
@@ -53,11 +56,19 @@ public class Main extends ApplicationAdapter {
         shader.setUniformi("u_texPalette", 1);
         Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
         final long time = TimeUtils.timeSinceMillis(startTime);
-        batch.setColor((208 + (time>>>12)%12)/255f, 0.5f, 0.5f, 1f);
+//        batch.setColor((208 + (time>>>12)%12)/255f, 0.5f, 0.5f, 1f);
 //        batch.setColor((time >>> 12) % 208 / 255f, 0.5f, 0.5f, 1f);
 
         int angle = (int) (time >>> 10 & 3);
-        batch.draw(terrain.get(angle).getKeyFrame(time * 1e-3f), 0, 0);
+        Sprite s = terrain.get(angle).getKeyFrame(time * 1e-3f);
+        s.setPosition(0, 0);
+        s.setColor((208 + (time>>>12)%12)/255f, 0.5f, 0.5f, 1f);
+        s.draw(batch);
+//        angle = (int) (time >>> 10 & 3);
+        s = infantry.get(angle).getKeyFrame(time * 1e-3f);
+        s.setPosition(0, 0);
+        s.setColor((time >>> 12) % 208 / 255f, 0.5f, 0.5f, 1f);
+        s.draw(batch);
         batch.end();
 
     }
