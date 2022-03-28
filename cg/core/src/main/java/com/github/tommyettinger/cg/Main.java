@@ -43,10 +43,21 @@ public class Main extends ApplicationAdapter {
             terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
         }
         for (int i = 0; i < ColorGuardData.units.size(); i++) {
-            String unit = ColorGuardData.units.get(i).name;
+            ColorGuardData.Unit unit = ColorGuardData.units.get(i);
+            String name = unit.name;
             units.add(new ObjectList<>(4));
             for (int a = 0; a < 4; a++) {
-                units.peek().add(new Animation<>(0.125f, atlas.createSprites(unit + "_angle" + a), Animation.PlayMode.LOOP));
+                units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_angle" + a), Animation.PlayMode.LOOP));
+            }
+            if(unit.primary != null) {
+                for (int a = 0; a < 4; a++) {
+                    units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Primary_angle" + a), Animation.PlayMode.LOOP));
+                }
+            }
+            if(unit.secondary != null) {
+                for (int a = 0; a < 4; a++) {
+                    units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Secondary_angle" + a), Animation.PlayMode.LOOP));
+                }
             }
         }
     }
@@ -74,13 +85,14 @@ public class Main extends ApplicationAdapter {
             for (int y = 19; y >= 0; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
-                s.setPosition((x - y) * 60 + 320, (x + y) * 30);
+                s.setPosition((x - y) * 60 + 320, (x + y) * 30 - 160);
                 s.setColor((208 + (hash>>>2) % 12) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
                 if((x & y & 1) == 1) {
-                    angle = (int) (time - hash >>> 10 & 3);
-                    s = units.get((hash>>>16)%units.size()).get(angle).getKeyFrame(time * 1e-3f);
-                    s.setPosition((x - y) * 60 + 320, (x + y) * 30);
+                    angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
+                    ObjectList<Animation<Sprite>> angles = units.get((hash>>>16)%units.size());
+                    s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
+                    s.setPosition((x - y) * 60 + 320, (x + y) * 30 - 160);
                     s.setColor((hash >>> 6) % 208 / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
                 }
