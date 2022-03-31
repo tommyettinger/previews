@@ -2,6 +2,8 @@ package com.github.tommyettinger.cg;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -24,6 +26,7 @@ public class Main extends ApplicationAdapter {
     public SpriteBatch batch;
     public ShaderProgram shader;
     public Viewport viewport;
+    public Camera camera;
     public long startTime;
     public ObjectList<Animation<Sprite>> terrain;
     public ObjectList<ObjectList<Animation<Sprite>>> units;
@@ -34,9 +37,9 @@ public class Main extends ApplicationAdapter {
         shader = new ShaderProgram(stuffSelectVertex, stuffSelectFragment);
         batch = new SpriteBatch(4000, shader);
         viewport = new ScreenViewport();
+        camera = viewport.getCamera();
         atlas = new TextureAtlas("ColorGuard.atlas");
         palettes = new Texture("ColorGuardMasterPalette.png");
-        startTime = TimeUtils.millis();
         terrain = new ObjectList<>(4);
         units = new ObjectList<>(ColorGuardData.units.size());
         for (int i = 0; i < 4; i++) {
@@ -60,16 +63,32 @@ public class Main extends ApplicationAdapter {
                 }
             }
         }
+
+        startTime = TimeUtils.millis();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height, false);
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.5f, 0.5f, 0.5f, 1f);
+        float moveAmt = Gdx.graphics.getDeltaTime() * 150f;
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))
+            camera.position.y -= moveAmt;
+        if(Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))
+            camera.position.y += moveAmt;
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
+            camera.position.x -= moveAmt;
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
+            camera.position.x += moveAmt;
+        camera.update();
+        viewport.apply(false);
+        batch.setProjectionMatrix(camera.combined);
+
         palettes.bind(1);
         batch.begin();
 
@@ -85,19 +104,36 @@ public class Main extends ApplicationAdapter {
             for (int y = 19; y >= 0; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
-                s.setPosition((x - y) * 60 + 320, (x + y) * 30 - 160);
+                s.setPosition((x - y) * 60 + 300, (x + y) * 30 - 154);
                 s.setColor((208 + ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed))) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
                 if((x & y & 1) == 1) {
                     angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
                     ObjectList<Animation<Sprite>> angles = units.get((hash>>>16)%units.size());
                     s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
-                    s.setPosition((x - y) * 60 + 320, (x + y) * 30 - 160);
+                    s.setPosition((x - y) * 60 + 300, (x + y) * 30 - 154);
                     s.setColor((hash >>> 6) % 208 / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
                 }
             }
         }
+//        for (int x = 19; x >= 0; x--) {
+//            for (int y = 19; y >= 0; y--) {
+//                int hash = IntPointHash.hashAll(x, y, seed);
+//                s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
+//                s.setPosition((x - y) * 60 + 300, (x + y) * 30 - 154);
+//                s.setColor((208 + ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed))) / 255f, 0.5f, 0.5f, 1f);
+//                s.draw(batch);
+//                if((x & y & 1) == 1) {
+//                    angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
+//                    ObjectList<Animation<Sprite>> angles = units.get((hash>>>16)%units.size());
+//                    s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
+//                    s.setPosition((x - y) * 60 + 300, (x + y) * 30 - 154);
+//                    s.setColor((hash >>> 6) % 208 / 255f, 0.5f, 0.5f, 1f);
+//                    s.draw(batch);
+//                }
+//            }
+//        }
         batch.end();
 
     }
