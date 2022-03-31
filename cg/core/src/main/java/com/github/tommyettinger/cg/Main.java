@@ -26,7 +26,7 @@ public class Main extends ApplicationAdapter {
     public Texture palettes;
     public SpriteBatch batch;
     public ShaderProgram shader;
-    public Viewport viewport;
+    public ScreenViewport viewport;
     public Camera camera;
     public long startTime;
     public ObjectList<Animation<Sprite>> terrain;
@@ -86,6 +86,18 @@ public class Main extends ApplicationAdapter {
             camera.position.x -= moveAmt;
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
             camera.position.x += moveAmt;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.EQUALS) || Gdx.input.isKeyJustPressed(Input.Keys.PLUS))
+        {
+            viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 0.5f);
+            viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.O) || Gdx.input.isKeyJustPressed(Input.Keys.MINUS))
+        {
+            viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 2f);
+            viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+            Gdx.app.exit();
         camera.update();
         viewport.apply(false);
         batch.setProjectionMatrix(camera.combined);
