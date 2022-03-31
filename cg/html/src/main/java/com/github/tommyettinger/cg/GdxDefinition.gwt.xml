@@ -3,6 +3,10 @@
 <module rename-to="html">
     <source path="" />
 	<inherits name="com.badlogic.gdx.backends.gdx_backends_gwt" />
+    <inherits name="squidcore" />
+    <inherits name="squidgrid" />
+    <inherits name="squidplace" />
+    <inherits name="squidpath" />
 	<inherits name="com.github.tommyettinger.cg.Main" />
     <entry-point class="com.github.tommyettinger.cg.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />

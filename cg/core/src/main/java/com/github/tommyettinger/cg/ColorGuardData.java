@@ -4,6 +4,7 @@ import com.github.tommyettinger.ds.NumberedSet;
 import com.github.tommyettinger.ds.ObjectIntMap;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.support.BitConversion;
+import com.github.yellowstonegames.core.MathTools;
 import com.github.yellowstonegames.grid.IntPointHash;
 import com.github.yellowstonegames.grid.Noise;
 
@@ -101,34 +102,36 @@ public class ColorGuardData {
         Noise n = Noise.instance;
         n.setNoiseType(Noise.FOAM_FRACTAL);
         n.setSeed(seed);
-        n.setFrequency(0x5.83p-5f);
+        n.setFrequency(0x5.83p-6f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(4);
         float high = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
         n.setSeed(seed ^ 0xC965815B);
-        n.setFrequency(0xD.09p-5f);
+        n.setFrequency(0xE.09p-5f);
         n.setFractalType(Noise.RIDGED_MULTI);
         n.setFractalOctaves(3);
-        high = high * 0.55f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x)) * 0.45f;
+        high = high * 0.5f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x)) * 0.5f;
+        high = MathTools.barronSpline(high, 2.5f, 0.5f);
         n.setSeed(seed ^ 0xDE916ABC);//0xC965815B
         n.setFrequency(0x8.13p-6f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(3);
         float hot = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
+        hot = MathTools.barronSpline(hot, 3f, 0.45f);
         n.setSeed(~seed);
         n.setFrequency(0x5.13p-5f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(2);
         float wet = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
         if(hot < -0.75) return "Ice";
-        if(high < -0.1) return "Ocean";
+        if(high < -0.04) return "Ocean";
         if(high < 0.04) return "River";
-        if(high < 0.2) return hot < -0.4f ? "Rocky" : "Coast";
+        if(high < 0.12) return hot < -0.4f ? "Rocky" : "Coast";
         if(r > 0x7D000000) return "Ruins";
-        if(high > 0.85) return "Mountains";
-        if(high > 0.65) return "Rocky";
-        if(hot > 0.5 && wet < 0.7) return wet < 0.1 ? "Desert" : "Plains";
-        if(wet > 0.3) return hot < 0.3 ? "Forest" : "Jungle";
+        if(high > 0.7) return "Mountains";
+        if(high > 0.5) return "Rocky";
+        if(hot > 0.35 && wet < 0.5) return wet < 0.1 ? "Desert" : "Plains";
+        if(wet > 0.1) return hot < 0.25 ? "Forest" : "Jungle";
         return "Plains";
     }
 
