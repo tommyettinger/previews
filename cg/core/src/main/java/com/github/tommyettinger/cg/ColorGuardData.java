@@ -1,5 +1,7 @@
 package com.github.tommyettinger.cg;
 
+import com.github.tommyettinger.ds.NumberedSet;
+import com.github.tommyettinger.ds.ObjectIntMap;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.support.BitConversion;
 import com.github.yellowstonegames.grid.IntPointHash;
@@ -99,7 +101,7 @@ public class ColorGuardData {
         Noise n = Noise.instance;
         n.setNoiseType(Noise.FOAM_FRACTAL);
         n.setSeed(seed);
-        n.setFrequency(0x5.03p-5f);
+        n.setFrequency(0x5.83p-5f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(4);
         float high = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
@@ -107,29 +109,30 @@ public class ColorGuardData {
         n.setFrequency(0xD.09p-5f);
         n.setFractalType(Noise.RIDGED_MULTI);
         n.setFractalOctaves(3);
-        high = high * 0.625f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x)) * 0.375f;
+        high = high * 0.55f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x)) * 0.45f;
         n.setSeed(seed ^ 0xDE916ABC);//0xC965815B
-        n.setFrequency(0x6.13p-6f);
+        n.setFrequency(0x8.13p-6f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(3);
         float hot = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
         n.setSeed(~seed);
-        n.setFrequency(0x4.13p-5f);
+        n.setFrequency(0x5.13p-5f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(2);
         float wet = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
         if(hot < -0.75) return "Ice";
-        if(high < 0.04) return "Ocean";
-        if(high < 0.11) return hot < -0.4f ? "Rocky" : "Coast";
-        if(r > 0x78000000) return "Ruins";
-        if(high > 0.75) return "Mountains";
-        if(high > 0.5) return "Rocky";
+        if(high < -0.1) return "Ocean";
+        if(high < 0.04) return "River";
+        if(high < 0.2) return hot < -0.4f ? "Rocky" : "Coast";
+        if(r > 0x7D000000) return "Ruins";
+        if(high > 0.85) return "Mountains";
+        if(high > 0.65) return "Rocky";
         if(hot > 0.5 && wet < 0.7) return wet < 0.1 ? "Desert" : "Plains";
         if(wet > 0.3) return hot < 0.3 ? "Forest" : "Jungle";
         return "Plains";
     }
 
-    public static List<String> terrains = ObjectList.with(
+    public static final NumberedSet<String> terrains = NumberedSet.with(
             "Coast", "Desert", "Forest", "Ice", "Jungle", "Mountains",
             "Ocean", "Plains", "River", "Rocky", "Ruins", "Volcano");
 }

@@ -86,7 +86,7 @@ public class Main extends ApplicationAdapter {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
                 s.setPosition((x - y) * 60 + 320, (x + y) * 30 - 160);
-                s.setColor((208 + (hash>>>2) % 12) / 255f, 0.5f, 0.5f, 1f);
+                s.setColor((208 + ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed))) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
                 if((x & y & 1) == 1) {
                     angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
