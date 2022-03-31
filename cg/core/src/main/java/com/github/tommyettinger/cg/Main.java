@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -100,18 +101,22 @@ public class Main extends ApplicationAdapter {
 
         int angle;
         Sprite s;
-        for (int x = 19; x >= 0; x--) {
-            for (int y = 19; y >= 0; y--) {
+        int ux = MathUtils.ceil((camera.position.x) / 60f);
+        int uy = MathUtils.ceil((camera.position.y) / 30f);
+        int upperX = (ux + uy) / 2;
+        int upperY = (uy - ux) / 2;
+        for (int x = upperX, nx = upperX - 18; x >= nx; x--) {
+            for (int y = upperY, ny = upperY - 18; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
-                s.setPosition((x - y) * 60 + 300, (x + y) * 30 - 154);
+                s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 446);
                 s.setColor((208 + ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed))) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
                 if((x & y & 1) == 1) {
                     angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
                     ObjectList<Animation<Sprite>> angles = units.get((hash>>>16)%units.size());
                     s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
-                    s.setPosition((x - y) * 60 + 300, (x + y) * 30 - 154);
+                    s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 446);
                     s.setColor((hash >>> 6) % 208 / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
                 }
