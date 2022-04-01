@@ -11,7 +11,7 @@ public class GwtLauncher extends GwtApplication {
 		public GwtApplicationConfiguration getConfig () {
 			// Resizable application, uses available space in browser with no padding:
 			GwtApplicationConfiguration cfg = new GwtApplicationConfiguration(true);
-			cfg.padVertical = 0;
+			cfg.padVertical = 120;
 			cfg.padHorizontal = 0;
 			return cfg;
 			// If you want a fixed size application, comment out the above resizable section,

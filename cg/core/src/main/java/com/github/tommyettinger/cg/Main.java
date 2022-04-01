@@ -97,10 +97,13 @@ public class Main extends ApplicationAdapter {
             viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 2f);
             viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R))
+            ++seed;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            --seed;
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             Gdx.app.exit();
         camera.position.set(MathUtils.round(camera.position.x), MathUtils.round(camera.position.y), camera.position.z);
-        camera.update();
         viewport.apply(false);
         batch.setProjectionMatrix(camera.combined);
 
