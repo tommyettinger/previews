@@ -178,7 +178,7 @@ public class Main extends ApplicationAdapter {
     public static final String stuffSelectFragment =
             "#ifdef GL_ES\n" +
                     "#define LOWP lowp\n" +
-                    "precision mediump float;\n" +
+                    "precision highp float;\n" +
                     "#else\n" +
                     "#define LOWP\n" +
                     "#endif\n" +
