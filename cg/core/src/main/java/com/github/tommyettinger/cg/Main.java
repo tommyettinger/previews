@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.tommyettinger.ds.IntList;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.yellowstonegames.grid.IntPointHash;
 
@@ -123,11 +124,13 @@ public class Main extends ApplicationAdapter {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
                 s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450 - 4);
-                s.setColor((160 + ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed))) / 255f, 0.5f, 0.5f, 1f);
+                String q = ColorGuardData.queryTerrain(x, y, seed);
+                s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
                 if((x & y & 1) == 1) {
                     angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
-                    ObjectList<Animation<Sprite>> angles = units.get((hash>>>16)%units.size());
+                    IntList ps = ColorGuardData.placeable.get(q);
+                    ObjectList<Animation<Sprite>> angles = units.get(ps.get((hash >>> 16) % ps.size()));
                     s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
                     s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450);
                     s.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);

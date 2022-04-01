@@ -1,8 +1,6 @@
 package com.github.tommyettinger.cg;
 
-import com.github.tommyettinger.ds.NumberedSet;
-import com.github.tommyettinger.ds.ObjectList;
-import com.github.tommyettinger.ds.ObjectSet;
+import com.github.tommyettinger.ds.*;
 import com.github.tommyettinger.ds.support.BitConversion;
 import com.github.yellowstonegames.core.MathTools;
 import com.github.yellowstonegames.grid.IntPointHash;
@@ -127,4 +125,24 @@ public class ColorGuardData {
     public static final NumberedSet<String> terrains = NumberedSet.with(
             "Coast", "Desert", "Forest", "Ice", "Jungle", "Mountains",
             "Ocean", "Plains", "River", "Rocky", "Ruins", "Volcano");
+
+    public static final ObjectObjectOrderedMap<String, IntList> placeable =
+            new ObjectObjectOrderedMap<>(terrains,
+                    ObjectList.with(
+                            new IntList(), new IntList(), new IntList(),
+                            new IntList(), new IntList(), new IntList(),
+                            new IntList(), new IntList(), new IntList(),
+                            new IntList(), new IntList(), new IntList()));
+
+    static {
+        for (String t : terrains) {
+            IntList us = placeable.get(t);
+            int ui = 0;
+            for (Unit u : units) {
+                if (u.places.contains(t))
+                    us.add(ui);
+                ui++;
+            }
+        }
+    }
 }
