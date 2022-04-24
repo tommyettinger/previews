@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -66,6 +67,32 @@ public class Main extends ApplicationAdapter {
             }
         }
 
+        Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter(){
+            @Override
+            public boolean zoom(float initialDistance, float distance) {
+                viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 0.5f);
+                viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
+                return super.zoom(initialDistance, distance);
+            }
+
+            @Override
+            public void pinchStop() {
+                viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 2f);
+                viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
+            }
+
+            @Override
+            public boolean pan(float x, float y, float deltaX, float deltaY) {
+                camera.position.add(-deltaX, deltaY, 0f);
+                return super.pan(x, y, deltaX, deltaY);
+            }
+
+            @Override
+            public boolean longPress(float x, float y) {
+                seed += Math.signum(x - Gdx.graphics.getBackBufferWidth() * 0.5f);
+                return super.longPress(x, y);
+            }
+        }));
         startTime = TimeUtils.millis();
     }
 
