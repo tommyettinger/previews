@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -70,15 +71,14 @@ public class Main extends ApplicationAdapter {
         Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter(){
             @Override
             public boolean zoom(float initialDistance, float distance) {
-                viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 0.5f);
-                viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
+                if((TimeUtils.timeSinceMillis(startTime) & 127) < 4) {
+                    if (initialDistance < distance)
+                        viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 0.5f);
+                    else
+                        viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 2f);
+                    viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
+                }
                 return super.zoom(initialDistance, distance);
-            }
-
-            @Override
-            public void pinchStop() {
-                viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 2f);
-                viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
             }
 
             @Override
