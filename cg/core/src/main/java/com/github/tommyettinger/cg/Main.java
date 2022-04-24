@@ -71,7 +71,7 @@ public class Main extends ApplicationAdapter {
         Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter(){
             @Override
             public boolean zoom(float initialDistance, float distance) {
-                if((TimeUtils.timeSinceMillis(startTime) & 127) < 4) {
+                if((TimeUtils.timeSinceMillis(startTime) & 63) < 3) {
                     if (initialDistance < distance)
                         viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 0.5f);
                     else
@@ -89,7 +89,7 @@ public class Main extends ApplicationAdapter {
 
             @Override
             public boolean longPress(float x, float y) {
-                seed += Math.signum(x - Gdx.graphics.getBackBufferWidth() * 0.5f);
+                seed += Math.signum(y - Gdx.graphics.getHeight() * 0.5f);
                 return super.longPress(x, y);
             }
         }));
