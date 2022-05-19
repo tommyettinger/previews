@@ -1,8 +1,8 @@
 package com.github.tommyettinger.cg;
 
 import com.github.tommyettinger.ds.*;
-import com.github.tommyettinger.ds.support.BitConversion;
-import com.github.yellowstonegames.core.MathTools;
+import com.github.tommyettinger.digital.BitConversion;
+import com.github.tommyettinger.digital.MathTools;
 import com.github.yellowstonegames.grid.IntPointHash;
 import com.github.yellowstonegames.grid.Noise;
 
