@@ -251,7 +251,7 @@ public class Main extends ApplicationAdapter {
                     "             pow(mat3(0.4121656120, 0.2118591070, 0.0883097947, 0.5362752080, 0.6807189584, 0.2818474174, 0.0514575653, 0.1074065790, 0.6302613616) \n" +
                     "             * (tgt.rgb * tgt.rgb), forward);\n" +
 
-                    "  lab.x = clamp(lab.x + index.y + v_color.g - 0.75, 0.0, 1.0);\n" +
+                    "  lab.x = smoothstep(0.0, 1.0, lab.x + index.y + v_color.g - 0.75);\n" +
                     "  lab.y = clamp(lab.y * (1.5 * color.b) * (0.5 + v_color.b), -1.0, 1.0);\n" +
                     "  lab.z = clamp(lab.z * (1.5 * color.b) * (0.5 + v_color.b) + (sqrt(lab.x) - 0.8) * 0.25, -1.0, 1.0);\n" +
                     "  lab = mat3(1.0, 1.0, 1.0, +0.3963377774, -0.1055613458, -0.0894841775, +0.2158037573, -0.0638541728, -1.2914855480) * lab;\n" +
