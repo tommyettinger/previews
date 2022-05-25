@@ -217,7 +217,8 @@ public class Main extends ApplicationAdapter {
                     "void main()\n" +
                     "{\n" +
                     "  vec4 color = texture2D(u_texture, v_texCoords);\n" +
-                    "  vec4 index = vec4(color.rgb * (254.0 / 255.0), v_color.r);\n" +
+                    "  vec4 index = vec4(color.rgb, v_color.r);\n" +
+                    "  index.rgb *= (254.0 / 255.5);\n" +
                     "  vec3 tgt = texture2D(u_texPalette, index.xw).rgb;\n" +
                     "  vec3 lab = mat3(+0.2104542553, +1.9779984951, +0.0259040371, +0.7936177850, -2.4285922050, +0.7827717662, -0.0040720468, +0.4505937099, -0.8086757660) *" +
                     "             pow(mat3(0.4121656120, 0.2118591070, 0.0883097947, 0.5362752080, 0.6807189584, 0.2818474174, 0.0514575653, 0.1074065790, 0.6302613616) \n" +
@@ -245,7 +246,8 @@ public class Main extends ApplicationAdapter {
                     "void main()\n" +
                     "{\n" +
                     "  vec4 color = texture2D(u_texture, v_texCoords);\n" +
-                    "  vec4 index = vec4(color.rgb * (254.0 / 255.0), v_color.r);\n" +
+                    "  vec4 index = vec4(color.rgb, v_color.r);\n" +
+                    "  index.rgb *= (254.0 / 255.5);\n" +
                     "  vec3 tgt = texture2D(u_texPalette, index.xw).rgb;\n" +
                     "  vec3 lab = mat3(+0.2104542553, +1.9779984951, +0.0259040371, +0.7936177850, -2.4285922050, +0.7827717662, -0.0040720468, +0.4505937099, -0.8086757660) *" +
                     "             pow(mat3(0.4121656120, 0.2118591070, 0.0883097947, 0.5362752080, 0.6807189584, 0.2818474174, 0.0514575653, 0.1074065790, 0.6302613616) \n" +
