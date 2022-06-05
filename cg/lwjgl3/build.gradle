@@ -30,6 +30,8 @@ jar {
 	duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 	dependsOn configurations.runtimeClasspath
 	from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+// removes all GWT-specific config files by their extension
+	exclude('*.gwt.xml')
 // these "exclude" lines remove some unnecessary duplicate files in the output JAR.
 	exclude('META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
 	dependencies {
