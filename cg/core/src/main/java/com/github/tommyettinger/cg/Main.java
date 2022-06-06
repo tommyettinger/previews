@@ -84,7 +84,7 @@ public class Main extends ApplicationAdapter {
 
             @Override
             public boolean pan(float x, float y, float deltaX, float deltaY) {
-                camera.position.add(-deltaX, deltaY, 0f);
+                camera.position.add(-deltaX * viewport.getUnitsPerPixel(), deltaY * viewport.getUnitsPerPixel(), 0f);
                 return super.pan(x, y, deltaX, deltaY);
             }
 
@@ -161,7 +161,7 @@ public class Main extends ApplicationAdapter {
                 String q = ColorGuardData.queryTerrain(x, y, seed);
                 s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
-                if(hash >>> 29 == 0) {
+                if(hash >>> 27 < 5) {
 //                if((x & y & 1) == 1) {
                     angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
                     IntList ps = ColorGuardData.placeable.get(q);
