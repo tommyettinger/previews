@@ -47,7 +47,8 @@ public class Main extends ApplicationAdapter {
         terrain = new ObjectList<>(4);
         units = new ObjectList<>(ColorGuardData.units.size());
         for (int i = 0; i < 4; i++) {
-            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
+//            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
+            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_Small_angle" + i), Animation.PlayMode.LOOP));
         }
         for (int i = 0; i < ColorGuardData.units.size(); i++) {
             ColorGuardData.Unit unit = ColorGuardData.units.get(i);
@@ -145,24 +146,29 @@ public class Main extends ApplicationAdapter {
 
         int angle;
         Sprite s;
-        int ux = MathUtils.ceil((camera.position.x) / 60f);
-        int uy = MathUtils.ceil((camera.position.y) / 30f);
+        int ux = MathUtils.ceil((camera.position.x) / 40f);
+        int uy = MathUtils.ceil((camera.position.y) / 20f);
+//        int ux = MathUtils.ceil((camera.position.x) / 60f);
+//        int uy = MathUtils.ceil((camera.position.y) / 30f);
         int upperX = (ux + uy) / 2;
         int upperY = (uy - ux) / 2;
-        for (int x = upperX, nx = upperX - 18; x >= nx; x--) {
-            for (int y = upperY, ny = upperY - 18; y >= ny; y--) {
+        for (int x = upperX, nx = upperX - 27; x >= nx; x--) {
+            for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
-                s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450 - 4);
+                s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
+//                s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450 - 4);
                 String q = ColorGuardData.queryTerrain(x, y, seed);
                 s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
-                if((x & y & 1) == 1) {
+                if(hash >>> 29 == 0) {
+//                if((x & y & 1) == 1) {
                     angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
                     IntList ps = ColorGuardData.placeable.get(q);
                     ObjectList<Animation<Sprite>> angles = units.get(ps.get((hash >>> 16) % ps.size()));
                     s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
-                    s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450);
+                    s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450);
+//                    s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450);
                     s.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
                 }
