@@ -16,7 +16,8 @@ public class GwtLauncher extends GwtApplication {
 //			return cfg;
 			// If you want a fixed size application, comment out the above resizable section,
 			// and uncomment below:
-			return new GwtApplicationConfiguration(960, 480);
+			GwtApplicationConfiguration cfg = new GwtApplicationConfiguration(960, 480);
+			return cfg;
 		}
 
 		@Override

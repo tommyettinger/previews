@@ -6,10 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
@@ -34,6 +31,7 @@ public class Main extends ApplicationAdapter {
     public long startTime;
     public ObjectList<Animation<Sprite>> terrain;
     public ObjectList<ObjectList<Animation<Sprite>>> units;
+    public BitmapFont font;
     public int seed = 1234;
 
     @Override
@@ -43,6 +41,7 @@ public class Main extends ApplicationAdapter {
         viewport = new ScreenViewport();
         camera = viewport.getCamera();
         atlas = new TextureAtlas("ColorGuard.atlas");
+        font = new BitmapFont(Gdx.files.internal("NanoOKExtended.fnt"), atlas.findRegion("NanoOKExtended"));
         palettes = new Texture("ColorGuardMasterPalette.png");
         terrain = new ObjectList<>(4);
         units = new ObjectList<>(ColorGuardData.units.size());
@@ -191,6 +190,8 @@ public class Main extends ApplicationAdapter {
 //                }
 //            }
 //        }
+        font.setColor(0f, 0f, 0.5f, 1f);
+        font.draw(batch, Gdx.graphics.getFramesPerSecond() + " fps", camera.position.x - viewport.getWorldWidth() * 0.4f, camera.position.y + viewport.getWorldHeight() * 0.4f);
         batch.end();
 
     }
