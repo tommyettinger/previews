@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -70,9 +71,13 @@ public class Main extends InputAdapter implements ApplicationListener {
 
 	private boolean debug = false;
 	private ShapeRenderer debugRenderer;
+	private BitmapFont font;
 
 	@Override
 	public void create () {
+		font = new BitmapFont();
+		font.getData().setScale(1f/25f);
+		font.setUseIntegerPositions(false);
 		// load the koala frames, split them, and assign them to Animations
 		koalaTexture = new Texture("koalio.png");
 		TextureRegion[] regions = TextureRegion.split(koalaTexture, 18, 26)[0];
@@ -296,6 +301,7 @@ public class Main extends InputAdapter implements ApplicationListener {
 		} else {
 			batch.draw(frame, koala.position.x + Koala.WIDTH, koala.position.y, -Koala.WIDTH, Koala.HEIGHT);
 		}
+		font.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", koala.position.x, koala.position.y + 4);
 		batch.end();
 	}
 
