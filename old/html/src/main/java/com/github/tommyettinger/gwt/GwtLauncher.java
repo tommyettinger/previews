@@ -45,7 +45,7 @@ public class GwtLauncher extends GwtApplication {
 		////END OF CODE FOR RESIZABLE APPLICATION
 
 		@Override
-		public ApplicationListener createApplicationListener () {
+		public ApplicationListener getApplicationListener () {
 			return new Main();
 		}
 }

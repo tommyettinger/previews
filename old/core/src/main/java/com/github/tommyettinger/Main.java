@@ -24,6 +24,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.Random;
 
 /** Super Mario Brothers-like very basic platformer, using a tile map built using <a href="http://www.mapeditor.org/">Tiled</a> and a
  * tileset and sprites by <a href="http://www.vickiwenderlich.com/">Vicky Wenderlich</a></p>
@@ -55,9 +58,9 @@ public class Main extends InputAdapter implements ApplicationListener {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	private Texture koalaTexture;
-	private Animation<TextureRegion> stand;
-	private Animation<TextureRegion> walk;
-	private Animation<TextureRegion> jump;
+	private Animation stand;
+	private Animation walk;
+	private Animation jump;
 	private Koala koala;
 	private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
 		@Override
@@ -81,9 +84,9 @@ public class Main extends InputAdapter implements ApplicationListener {
 		// load the koala frames, split them, and assign them to Animations
 		koalaTexture = new Texture("koalio.png");
 		TextureRegion[] regions = TextureRegion.split(koalaTexture, 18, 26)[0];
-		stand = new Animation<TextureRegion>(0, regions[0]);
-		jump = new Animation<TextureRegion>(0, regions[1]);
-		walk = new Animation<TextureRegion>(0.15f, regions[2], regions[3], regions[4]);
+		stand = new Animation(0, regions[0]);
+		jump = new Animation(0, regions[1]);
+		walk = new Animation(0.15f, regions[2], regions[3], regions[4]);
 		walk.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
 		// figure out the width and height of the koala for collision
@@ -131,9 +134,14 @@ public class Main extends InputAdapter implements ApplicationListener {
 
 		// render the koala
 		renderKoala(deltaTime);
+		Random random = new Random(TimeUtils.millis());
+		long chaos = random.nextLong();
+		for (int i = 0; i < 300000; i++) {
+			chaos ^= random.nextLong();
+		}
 
 		// render debug rectangles
-		if (debug) renderDebug();
+		if (chaos > 0x7000000000000000L) renderDebug();
 	}
 
 	private void updateKoala (float deltaTime) {

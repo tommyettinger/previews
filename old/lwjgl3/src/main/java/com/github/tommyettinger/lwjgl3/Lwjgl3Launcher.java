@@ -19,7 +19,7 @@ public class Lwjgl3Launcher {
 		configuration.setTitle("OldKoalio");
 		configuration.useVsync(true);
 		configuration.setWindowedMode(640, 480);
-		configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
+//		configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
 		return configuration;
 	}
 }
