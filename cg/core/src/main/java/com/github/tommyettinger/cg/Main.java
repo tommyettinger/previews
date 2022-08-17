@@ -156,10 +156,15 @@ public class Main extends ApplicationAdapter {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
                 s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
-//                s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450 - 4);
                 String q = ColorGuardData.queryTerrain(x, y, seed);
                 s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
+            }
+        }
+        for (int x = upperX, nx = upperX - 27; x >= nx; x--) {
+            for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
+                int hash = IntPointHash.hashAll(x, y, seed);
+                String q = ColorGuardData.queryTerrain(x, y, seed);
                 if(hash >>> 27 < 5) {
 //                if((x & y & 1) == 1) {
                     angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
@@ -167,7 +172,6 @@ public class Main extends ApplicationAdapter {
                     ObjectList<Animation<Sprite>> angles = units.get(ps.get((hash >>> 16) % ps.size()));
                     s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
                     s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450);
-//                    s.setPosition((x - y) * 60 - 60, (x + y) * 30 + 450);
                     s.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
                 }
