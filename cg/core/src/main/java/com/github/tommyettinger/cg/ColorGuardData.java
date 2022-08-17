@@ -84,29 +84,30 @@ public class ColorGuardData {
             );
 
     public static String queryTerrain(float x, float y, int seed){
-        int r = IntPointHash.hashAll(BitConversion.floatToReversedIntBits(x),
-                BitConversion.floatToReversedIntBits(y), seed);
+        int r = IntPointHash.hashAll(BitConversion.floatToIntBits(x),
+                BitConversion.floatToIntBits(y), seed);
         Noise n = Noise.instance;
         n.setNoiseType(Noise.FOAM_FRACTAL);
         n.setSeed(seed);
-        n.setFrequency(0x5.83p-6f);
+        n.setFrequency(0x5.83p-7f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(4);
         float high = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
         n.setSeed(seed ^ 0xC965815B);
-        n.setFrequency(0xE.09p-5f);
+        n.setFrequency(0xE.09p-7f);
         n.setFractalType(Noise.RIDGED_MULTI);
         n.setFractalOctaves(3);
         high = high * 0.5f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x)) * 0.5f;
-        high = MathTools.barronSpline(high, 2.5f, 0.5f);
+        high = high / (((0.4f - 1f) * (1f - Math.abs(high))) + 1.0000001f);
         n.setSeed(seed ^ 0xDE916ABC);//0xC965815B
-        n.setFrequency(0x8.13p-6f);
+        n.setFrequency(0x8.13p-5f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(3);
         float hot = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
-        hot = MathTools.barronSpline(hot, 3f, 0.45f);
+        hot = hot / (((0.333f - 1f) * (1f - Math.abs(hot))) + 1.0000001f);
+
         n.setSeed(~seed);
-        n.setFrequency(0x5.13p-5f);
+        n.setFrequency(0x5.13p-6f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(2);
         float wet = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
@@ -117,8 +118,8 @@ public class ColorGuardData {
         if(r > 0x7D000000) return "Ruins";
         if(high > 0.7) return "Mountains";
         if(high > 0.5) return "Rocky";
-        if(hot > 0.35 && wet < 0.5) return wet < 0.1 ? "Desert" : "Plains";
-        if(wet > 0.1) return hot < 0.25 ? "Forest" : "Jungle";
+        if(hot > 0.45 && wet < 0.5) return wet < 0.0 ? "Desert" : "Plains";
+        if(wet > 0.15) return hot < 0.3 ? "Forest" : "Jungle";
         return "Plains";
     }
 
