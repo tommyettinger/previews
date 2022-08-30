@@ -10,11 +10,9 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.tommyettinger.ds.IntList;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.yellowstonegames.grid.IntPointHash;
@@ -31,6 +29,7 @@ public class Main extends ApplicationAdapter {
     public long startTime;
     public ObjectList<Animation<Sprite>> terrain;
     public ObjectList<ObjectList<Animation<Sprite>>> units;
+    public ObjectList<ObjectList<Animation<Sprite>>> receives;
     public BitmapFont font;
     public int seed = 1234;
 
@@ -45,6 +44,7 @@ public class Main extends ApplicationAdapter {
         palettes = new Texture("ColorGuardMasterPalette.png");
         terrain = new ObjectList<>(4);
         units = new ObjectList<>(ColorGuardData.units.size());
+        receives = new ObjectList<>(ColorGuardData.units.size());
         for (int i = 0; i < 4; i++) {
 //            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
             terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_Small_angle" + i), Animation.PlayMode.LOOP));
@@ -53,17 +53,20 @@ public class Main extends ApplicationAdapter {
             ColorGuardData.Unit unit = ColorGuardData.units.get(i);
             String name = unit.name;
             units.add(new ObjectList<>(4));
+            receives.add(new ObjectList<>(4));
             for (int a = 0; a < 4; a++) {
                 units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_angle" + a), Animation.PlayMode.LOOP));
             }
             if(unit.primary != null) {
                 for (int a = 0; a < 4; a++) {
                     units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Primary_angle" + a), Animation.PlayMode.LOOP));
+                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.primary + "_Receive_" + unit.primaryStrength + "_angle" + (a+2&3))));
                 }
             }
             if(unit.secondary != null) {
                 for (int a = 0; a < 4; a++) {
                     units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Secondary_angle" + a), Animation.PlayMode.LOOP));
+                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.secondary + "_Receive_" + unit.secondaryStrength + "_angle" + (a+2&3))));
                 }
             }
         }
@@ -144,7 +147,7 @@ public class Main extends ApplicationAdapter {
 //        batch.setColor((time >>> 12) % 208 / 255f, 0.5f, 0.5f, 1f);
 
         int angle;
-        Sprite s;
+        Sprite s, rec;
         int ux = MathUtils.ceil((camera.position.x) / 40f);
         int uy = MathUtils.ceil((camera.position.y) / 20f);
 //        int ux = MathUtils.ceil((camera.position.x) / 60f);
@@ -167,13 +170,27 @@ public class Main extends ApplicationAdapter {
                 String q = ColorGuardData.queryTerrain(x, y, seed);
                 if(hash >>> 27 < 5) {
 //                if((x & y & 1) == 1) {
-                    angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;
                     IntList ps = ColorGuardData.placeable.get(q);
-                    ObjectList<Animation<Sprite>> angles = units.get(ps.get((hash >>> 16) % ps.size()));
-                    s = angles.get(angle % angles.size()).getKeyFrame((time - hash & 0xFFFFFF) * 1e-3f);
+                    int psi = ps.get((hash >>> 16) % ps.size());
+                    ObjectList<Animation<Sprite>> angles = units.get(psi);
+                    ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
+                    angle = ((int) ((time - hash & 0xFFFFFF) * 1e-3) & 15) % angles.size();
+                    float t = (time - hash & 0xFFFFFF) * 1e-3f;
+                    s = angles.get(angle).getKeyFrame(t);
+                    if(angle >= 4) {
+                        rec = receives.get(psi).get(angle - 4).getKeyFrame(t, true);
+                        int rx = x, ry = y, range = (angle < 8) ? unit.primaryRange : unit.secondaryRange;
+                        if((angle & 1) == 0) rx -= range * (-(angle & 2) >> 31 | 1);
+                        else ry -= range * (-(angle & 2) >> 31 | 1);
+                        rec.setPosition((rx - ry) * 40 - 40, (rx + ry) * 20 + 450);
+                        rec.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
+                    }
+                    else rec = null;
                     s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450);
                     s.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
+                    if(rec != null)
+                        rec.draw(batch);
                 }
             }
         }

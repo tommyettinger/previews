@@ -13,22 +13,24 @@ public class ColorGuardData {
         public String name;
         public String primary;
         public String secondary;
-        public int primaryRange;
-        public int secondaryRange;
+        public int primaryRange, primaryStrength;
+        public int secondaryRange, secondaryStrength;
         public ObjectSet<String> places;
 
         public Unit(String name, String placement){
-            this(name, null, 0, null, 0, placement);
+            this(name, null, 0, 0, null, 0, 0, placement);
         }
-        public Unit(String name, String primary, int primaryRange, String placement){
-            this(name, primary, primaryRange, null, 0, placement);
+        public Unit(String name, String primary, int primaryRange, int primaryStrength, String placement){
+            this(name, primary, primaryRange, primaryStrength, null, 0, 0, placement);
         }
-        public Unit(String name, String primary, int primaryRange, String secondary, int secondaryRange, String placement){
+        public Unit(String name, String primary, int primaryRange, int primaryStrength, String secondary, int secondaryRange, int secondaryStrength, String placement){
             this.name = name;
             this.primary = primary;
             this.secondary = secondary;
             this.primaryRange = primaryRange;
             this.secondaryRange = secondaryRange;
+            this.primaryStrength = primaryStrength;
+            this.secondaryStrength = secondaryStrength;
             places = ObjectSet.with(placement.split(" "));
         }
 
@@ -38,39 +40,39 @@ public class ColorGuardData {
     }
 
     public static List<Unit> units = ObjectList.with(
-            new Unit("Infantry", "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
-            new Unit("Bazooka", "Handgun", 1, "Forward_Missile", 1, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
-            new Unit("Bike", "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Plains Ruins"),
-            new Unit("Rifle_Sniper", "Handgun", 1, "Handgun", 2, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
-            new Unit("Mortar_Sniper", "Arc_Cannon", 3, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
-            new Unit("Missile_Sniper", "Arc_Missile", 2, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
-            new Unit("Light_Tank", "Forward_Cannon", 1, "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("War_Tank", "Forward_Cannon", 1, "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("Scout_Tank", "Forward_Cannon", 1, "Handgun", 2, "Coast Desert Forest Ice Jungle Plains River Rocky Ruins"),
-            new Unit("Heavy_Cannon", "Forward_Cannon", 2, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("Recon", "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Plains Ruins"),
-            new Unit("AA_Gun", "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("Flamethrower", "Flame_Wave", 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("Light_Artillery", "Arc_Cannon", 2, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("Rocket_Artillery", "Arc_Missile", 3, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("AA_Artillery", "Arc_Missile", 4, "Coast Desert Forest Ice Jungle Plains Ruins"),
+            new Unit("Infantry", "Machine_Gun", 1, 1, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
+            new Unit("Bazooka", "Handgun", 1, 1, "Forward_Missile", 1, 3, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
+            new Unit("Bike", "Machine_Gun", 1, 2, "Coast Desert Forest Ice Jungle Plains Ruins"),
+            new Unit("Rifle_Sniper", "Handgun", 1, 1, "Handgun", 2, 2, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
+            new Unit("Mortar_Sniper", "Arc_Cannon", 3, 1, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
+            new Unit("Missile_Sniper", "Arc_Missile", 2, 1, "Coast Desert Forest Ice Jungle Mountains Plains River Rocky Ruins"),
+            new Unit("Light_Tank", "Forward_Cannon", 1, 1, "Machine_Gun", 1, 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
+            new Unit("War_Tank", "Forward_Cannon", 1, 2, "Machine_Gun", 1, 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
+            new Unit("Scout_Tank", "Forward_Cannon", 1, 1, "Handgun", 2, 2, "Coast Desert Forest Ice Jungle Plains River Rocky Ruins"),
+            new Unit("Heavy_Cannon", "Forward_Cannon", 2, 2, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
+            new Unit("Recon", "Machine_Gun", 1, 1, "Coast Desert Forest Ice Jungle Plains Ruins"),
+            new Unit("AA_Gun", "Machine_Gun", 1, 2, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
+            new Unit("Flamethrower", "Flame_Wave", 1, 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
+            new Unit("Light_Artillery", "Arc_Cannon", 2, 1, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
+            new Unit("Rocket_Artillery", "Arc_Missile", 3, 8, "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
+            new Unit("AA_Artillery", "Arc_Missile", 4, 1, "Coast Desert Forest Ice Jungle Plains Ruins"),
             new Unit("Supply_Truck", "Coast Desert Forest Ice Jungle Plains Ruins"),
             new Unit("Amphi_Transport", "Coast Desert Forest Ice Jungle Ocean Plains River Rocky Ruins"),
             new Unit("Build_Rig", "Coast Desert Forest Ice Jungle Plains Rocky Ruins"),
-            new Unit("Jammer", "Hack", 2, "Coast Desert Forest Ice Jungle Plains Ruins"),
-            new Unit("Comm_Copter", "Hack", 3, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Jetpack", "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Jammer", "Hack", 2, 2, "Coast Desert Forest Ice Jungle Plains Ruins"),
+            new Unit("Comm_Copter", "Hack", 3, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Jetpack", "Machine_Gun", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
             new Unit("Transport_Copter", "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Blitz_Copter", "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Gunship_Copter", "Machine_Gun", 1, "Forward_Missile", 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Patrol_Boat", "Machine_Gun", 2, "Ocean River"),
-            new Unit("Battleship", "Arc_Cannon", 3, "Ocean"),
-            new Unit("Cruiser", "Arc_Missile", 2, "Torpedo", 1, "Ocean River"),
-            new Unit("Submarine", "Arc_Missile", 3, "Torpedo", 1, "Ocean"),
-            new Unit("Legacy_Plane", "Machine_Gun", 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Fighter_Jet", "Forward_Missile", 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Stealth_Jet", "Forward_Missile", 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Heavy_Bomber", "Bomb_Drop", 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Blitz_Copter", "Machine_Gun", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Gunship_Copter", "Machine_Gun", 1, 2, "Forward_Missile", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Patrol_Boat", "Machine_Gun", 2, 2, "Ocean River"),
+            new Unit("Battleship", "Arc_Cannon", 3, 4, "Ocean River"),
+            new Unit("Cruiser", "Arc_Missile", 2, 4, "Torpedo", 1, 1, "Ocean River"),
+            new Unit("Submarine", "Arc_Missile", 3, 1, "Torpedo", 1, 2, "Ocean River"),
+            new Unit("Legacy_Plane", "Machine_Gun", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Fighter_Jet", "Forward_Missile", 1, 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Stealth_Jet", "Forward_Missile", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Heavy_Bomber", "Bomb_Drop", 1, 3, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
             new Unit("City", "Coast Desert Forest Ice Jungle Plains"),
             new Unit("Mansion", "Coast Desert Forest Ice Jungle Plains"),
             new Unit("Fort", "Coast Desert Forest Ice Jungle Plains"),
