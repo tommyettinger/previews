@@ -168,7 +168,8 @@ public class Main extends ApplicationAdapter {
             for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 String q = ColorGuardData.queryTerrain(x, y, seed);
-                if(hash >>> 27 < 5) {
+                if(hash >>> 27 < 3) {
+//                if(hash >>> 27 < 5) {
 //                if((x & y & 1) == 1) {
                     IntList ps = ColorGuardData.placeable.get(q);
                     int psi = ps.get((hash >>> 16) % ps.size());
