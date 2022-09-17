@@ -3,10 +3,18 @@
 <module rename-to="html">
     <source path="" />
 	<inherits name="com.badlogic.gdx.backends.gdx_backends_gwt" />
-    <inherits name="squidcore" />
+<!--  Should be covered by inheriting squidgrid />-->
+<!--    <inherits name="regexodus"/>-->
+<!--    <inherits name="funderby"/>-->
+<!--    <inherits name="digital" />-->
+<!--    <inherits name="juniper" />-->
+<!--    <inherits name="jdkgdxds" />-->
+<!--    <inherits name="squidcore" />-->
     <inherits name="squidgrid" />
-    <inherits name="squidplace" />
-    <inherits name="squidpath" />
+
+<!--  Not currently used />-->
+<!--    <inherits name="squidplace" />-->
+<!--    <inherits name="squidpath" />-->
 	<inherits name="com.github.tommyettinger.cg.Main" />
     <entry-point class="com.github.tommyettinger.cg.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />

@@ -31,15 +31,15 @@ dependencies {
 	implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
 	implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
 	implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-    implementation "com.github.tommyettinger:digital:$digitalVersion:sources"
     implementation "com.github.tommyettinger:juniper:$juniperVersion:sources"
-    implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion:sources"
-    implementation "com.github.tommyettinger:bluegrass:0.2.2:sources"
+    implementation "com.github.tommyettinger:digital:$digitalVersion"
+    implementation "com.github.tommyettinger:funderby:$funderbyVersion"
+    implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion"
+    implementation "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion"
+    implementation "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion"
+//    implementation "com.github.yellowstonegames.SquidSquad:SquidPlace:$squadVersion"
+//    implementation "com.github.yellowstonegames.SquidSquad:SquidPath:$squadVersion"
     implementation "com.github.tommyettinger:regexodus:0.1.13:sources"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidCore:$squidSquadVersion:sources"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidGrid:$squidSquadVersion:sources"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidPlace:$squidSquadVersion:sources"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidPath:$squidSquadVersion:sources"
 	implementation project(':core')
 
 //// You can use the lines below instead of the "com.badlogicgames.gdx:gdx-backend-gwt" dependencies.
@@ -148,7 +148,6 @@ task distZip(type: Zip, dependsOn: dist){
 tasks.compileGwt.dependsOn(addSource)
 tasks.draftCompileGwt.dependsOn(addSource)
 tasks.checkGwt.dependsOn(addSource)
-checkGwt.war = file("war")
 
 // You can change the version below to JavaVersion.VERSION_11 if you use the 2.9.0 backend.
 sourceCompatibility = JavaVersion.VERSION_1_8
