@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.TimeUtils;
  * Created by Tommy Ettinger on 12/20/2019.
  */
 public class AnimatedSprite extends Sprite {
-    public Animation<TextureRegion> animation;
+    public Animation<Sprite> animation;
     public long startTime;
 
     private AnimatedSprite()
@@ -21,7 +21,7 @@ public class AnimatedSprite extends Sprite {
         setColor(0f, 0.5f, 0.5f, 1f);
     }
 
-    public AnimatedSprite(Animation<TextureRegion> animation, float x, float y, int palette) {
+    public AnimatedSprite(Animation<Sprite> animation, float x, float y, int palette) {
         super(animation.getKeyFrame(0f));
         this.animation = animation;
         setPosition(x, y);
@@ -29,7 +29,7 @@ public class AnimatedSprite extends Sprite {
         startTime = TimeUtils.millis();
     }
 
-    public AnimatedSprite setAnimation(Animation<TextureRegion> animation) {
+    public AnimatedSprite setAnimation(Animation<Sprite> animation) {
         this.animation = animation;
         checkpoint();
         return this;

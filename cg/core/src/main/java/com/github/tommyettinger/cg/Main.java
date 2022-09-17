@@ -36,7 +36,7 @@ public class Main extends ApplicationAdapter {
     public ObjectList<ObjectList<Animation<Sprite>>> units;
     public ObjectList<ObjectList<Animation<Sprite>>> receives;
     public CoordObjectOrderedMap<AnimatedSprite> enemies;
-    public AnimatedSprite hero;
+    public AnimatedSprite hero, receiving;
     public Coord heroPosition;
     public int[][] land = new int[20][20];
 
@@ -57,6 +57,7 @@ public class Main extends ApplicationAdapter {
         terrain = new ObjectList<>(4);
         units = new ObjectList<>(ColorGuardData.units.size());
         receives = new ObjectList<>(ColorGuardData.units.size());
+        enemies = new CoordObjectOrderedMap<>(80);
         for (int i = 0; i < 4; i++) {
 //            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
             terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_Small_angle" + i), Animation.PlayMode.LOOP));
@@ -72,13 +73,13 @@ public class Main extends ApplicationAdapter {
             if (unit.primary != null) {
                 for (int a = 0; a < 4; a++) {
                     units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Primary_angle" + a), Animation.PlayMode.LOOP));
-                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.primary + "_Receive_" + unit.primaryStrength + "_angle" + (a + 2 & 3))));
+                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.primary + "_Receive_" + unit.primaryStrength + "_angle" + (a + 2 & 3)), Animation.PlayMode.NORMAL));
                 }
             }
             if (unit.secondary != null) {
                 for (int a = 0; a < 4; a++) {
                     units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Secondary_angle" + a), Animation.PlayMode.LOOP));
-                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.secondary + "_Receive_" + unit.secondaryStrength + "_angle" + (a + 2 & 3))));
+                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.secondary + "_Receive_" + unit.secondaryStrength + "_angle" + (a + 2 & 3)), Animation.PlayMode.NORMAL));
                 }
             }
         }
@@ -112,9 +113,19 @@ public class Main extends ApplicationAdapter {
         for (int x = 19, nx = 0; x >= nx; x--) {
             for (int y = 19, ny = 0; y >= ny; y--) {
                 land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
+                int hash = IntPointHash.hashAll(x, y, seed);
+                if (hash >>> 26 < 5) {
+//                if(hash >>> 27 < 5) {
+                    IntList ps = ColorGuardData.placeable.getAt(land[x][y]);
+                    int psi = ps.get((hash >>> 16) % ps.size());
+                    ObjectList<Animation<Sprite>> angles = units.get(psi);
+                    ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
+                    int angle = ((int) ((-hash & 0xFFFFFF) * 1e-3) & 15) & 3;
+                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 450, (hash >>> 6));
+                    enemies.put(Coord.get(x, y), as);
+                }
             }
         }
-
         startTime = TimeUtils.millis();
     }
 
@@ -167,12 +178,6 @@ public class Main extends ApplicationAdapter {
 
         int angle;
         Sprite s, rec;
-        int ux = MathUtils.ceil((camera.position.x) / 40f);
-        int uy = MathUtils.ceil((camera.position.y) / 20f);
-//        int ux = MathUtils.ceil((camera.position.x) / 60f);
-//        int uy = MathUtils.ceil((camera.position.y) / 30f);
-        int upperX = (ux + uy) / 2;
-        int upperY = (uy - ux) / 2;
         for (int x = 19, nx = 0; x >= nx; x--) {
             for (int y = 19, ny = 0; y >= ny; y--) {
 //                land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
@@ -187,30 +192,9 @@ public class Main extends ApplicationAdapter {
             for (int y = 19, ny = 0; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 int q = land[x][y];
-                if(hash >>> 26 < 5) {
-//                if(hash >>> 27 < 5) {
-//                if((x & y & 1) == 1) {
-                    IntList ps = ColorGuardData.placeable.getAt(q);
-                    int psi = ps.get((hash >>> 16) % ps.size());
-                    ObjectList<Animation<Sprite>> angles = units.get(psi);
-                    ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
-                    angle = ((int) ((time - hash & 0xFFFFFF) * 1e-3) & 15) % angles.size();
-                    float t = (time - hash & 0xFFFFFF) * 1e-3f;
-                    s = angles.get(angle).getKeyFrame(t);
-                    if(angle >= 4) {
-                        rec = receives.get(psi).get(angle - 4).getKeyFrame(t, true);
-                        int rx = x, ry = y, range = (angle < 8) ? unit.primaryRange : unit.secondaryRange;
-                        if((angle & 1) == 0) rx -= range * (-(angle & 2) >> 31 | 1);
-                        else ry -= range * (-(angle & 2) >> 31 | 1);
-                        rec.setPosition((rx - ry) * 40 - 40, (rx + ry) * 20 + 450);
-                        rec.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
-                    }
-                    else rec = null;
-                    s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450);
-                    s.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
-                    s.draw(batch);
-                    if(rec != null)
-                        rec.draw(batch);
+                AnimatedSprite as;
+                if((as = enemies.get(Coord.get(x, y))) != null) {
+                    as.draw(batch);
                 }
             }
         }
