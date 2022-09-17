@@ -1,6 +1,7 @@
 package com.github.tommyettinger.cg;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -41,11 +42,14 @@ public class AnimatedSprite extends Sprite {
     }
 
     @Override
-    public float[] getVertices() {
+    public void draw(Batch batch) {
         final float time = TimeUtils.timeSinceMillis(startTime) * 1e-3f;
-        setRegion(animation.getKeyFrame(time));
+
+        Sprite s = animation.getKeyFrame(time);
+        s.setPosition(getX(), getY());
+        s.setColor(getColor());
+        s.draw(batch);
         if(animation.isAnimationFinished(time))
             checkpoint();
-        return super.getVertices();
     }
 }
