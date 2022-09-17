@@ -26,6 +26,13 @@ public class AnimatedSprite extends Sprite {
         this.animation = animation;
         setPosition(x, y);
         setColor(palette % 160 / 255f, 0.5f, 0.5f, 1f);
+        startTime = TimeUtils.millis();
+    }
+
+    public AnimatedSprite setAnimation(Animation<TextureRegion> animation) {
+        this.animation = animation;
+        checkpoint();
+        return this;
     }
 
     public AnimatedSprite checkpoint() {

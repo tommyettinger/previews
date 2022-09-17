@@ -15,12 +15,10 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.tommyettinger.ds.IntList;
 import com.github.tommyettinger.ds.ObjectList;
-import com.github.yellowstonegames.grid.Coord;
-import com.github.yellowstonegames.grid.CoordObjectOrderedMap;
 import com.github.yellowstonegames.grid.IntPointHash;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main extends ApplicationAdapter {
+public class MainOld extends ApplicationAdapter {
 
     public TextureAtlas atlas;
     public Texture palettes;
@@ -30,16 +28,8 @@ public class Main extends ApplicationAdapter {
     public Camera camera;
     public long startTime;
     public ObjectList<Animation<Sprite>> terrain;
-    // each Animation<Sprite> is one facing of one unit.
-    // each ObjectList<Animation<Sprite>> is the list of 4 facings plus 4 or 8 more for attacks
-    // as a whole, this is the list for all units, each one with 4-12 facings.
     public ObjectList<ObjectList<Animation<Sprite>>> units;
     public ObjectList<ObjectList<Animation<Sprite>>> receives;
-    public CoordObjectOrderedMap<AnimatedSprite> enemies;
-    public AnimatedSprite hero;
-    public Coord heroPosition;
-    public int[][] land = new int[20][20];
-
     public BitmapFont font;
     public int seed = 1234;
 
@@ -49,8 +39,6 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch(4000, shader);
         viewport = new ScreenViewport();
         camera = viewport.getCamera();
-        camera.position.set(0, 20 * 20 + 450 - 10f, 0f);
-
         atlas = new TextureAtlas("ColorGuard.atlas");
         font = new BitmapFont(Gdx.files.internal("NanoOKExtended.fnt"), atlas.findRegion("NanoOKExtended"));
         palettes = new Texture("ColorGuardMasterPalette.png");
@@ -69,24 +57,24 @@ public class Main extends ApplicationAdapter {
             for (int a = 0; a < 4; a++) {
                 units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_angle" + a), Animation.PlayMode.LOOP));
             }
-            if (unit.primary != null) {
+            if(unit.primary != null) {
                 for (int a = 0; a < 4; a++) {
                     units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Primary_angle" + a), Animation.PlayMode.LOOP));
-                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.primary + "_Receive_" + unit.primaryStrength + "_angle" + (a + 2 & 3))));
+                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.primary + "_Receive_" + unit.primaryStrength + "_angle" + (a+2&3))));
                 }
             }
-            if (unit.secondary != null) {
+            if(unit.secondary != null) {
                 for (int a = 0; a < 4; a++) {
                     units.peek().add(new Animation<>(0.125f, atlas.createSprites(name + "_Secondary_angle" + a), Animation.PlayMode.LOOP));
-                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.secondary + "_Receive_" + unit.secondaryStrength + "_angle" + (a + 2 & 3))));
+                    receives.peek().add(new Animation<>(0.125f, atlas.createSprites(unit.secondary + "_Receive_" + unit.secondaryStrength + "_angle" + (a+2&3))));
                 }
             }
         }
 
-        Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
+        Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter(){
             @Override
             public boolean zoom(float initialDistance, float distance) {
-                if ((TimeUtils.timeSinceMillis(startTime) & 63) < 3) {
+                if((TimeUtils.timeSinceMillis(startTime) & 63) < 3) {
                     if (initialDistance < distance)
                         viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 0.5f);
                     else
@@ -108,13 +96,6 @@ public class Main extends ApplicationAdapter {
                 return super.longPress(x, y);
             }
         }));
-
-        for (int x = 19, nx = 0; x >= nx; x--) {
-            for (int y = 19, ny = 0; y >= ny; y--) {
-                land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
-            }
-        }
-
         startTime = TimeUtils.millis();
     }
 
@@ -173,24 +154,24 @@ public class Main extends ApplicationAdapter {
 //        int uy = MathUtils.ceil((camera.position.y) / 30f);
         int upperX = (ux + uy) / 2;
         int upperY = (uy - ux) / 2;
-        for (int x = 19, nx = 0; x >= nx; x--) {
-            for (int y = 19, ny = 0; y >= ny; y--) {
-//                land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
+        for (int x = upperX, nx = upperX - 27; x >= nx; x--) {
+            for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
                 s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
-                s.setColor((160 + land[x][y]) / 255f, 0.5f, 0.5f, 1f);
+                String q = ColorGuardData.queryTerrain(x, y, seed);
+                s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
             }
         }
-        for (int x = 19, nx = 0; x >= nx; x--) {
-            for (int y = 19, ny = 0; y >= ny; y--) {
+        for (int x = upperX, nx = upperX - 27; x >= nx; x--) {
+            for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
-                int q = land[x][y];
-                if(hash >>> 26 < 5) {
+                String q = ColorGuardData.queryTerrain(x, y, seed);
+                if(hash >>> 27 < 3) {
 //                if(hash >>> 27 < 5) {
 //                if((x & y & 1) == 1) {
-                    IntList ps = ColorGuardData.placeable.getAt(q);
+                    IntList ps = ColorGuardData.placeable.get(q);
                     int psi = ps.get((hash >>> 16) % ps.size());
                     ObjectList<Animation<Sprite>> angles = units.get(psi);
                     ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
