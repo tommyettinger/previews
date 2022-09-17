@@ -13,8 +13,8 @@ apply plugin: "org.gretty"
 
 gwt {
     gwtVersion = "$gwtFrameworkVersion" // Should match the version used for building the GWT backend. See gradle.properties.
-    maxHeapSize = '1G' // Default 256m is not enough for the GWT compiler. GWT is HUNGRY.
-    minHeapSize = '1G'
+    maxHeapSize = '2G' // Default 256m is not enough for the GWT compiler. GWT is HUNGRY.
+    minHeapSize = '2G'
 
     src = files(file('src/main/java')) // Needs to be in front of "modules" below.
     modules 'com.github.tommyettinger.cg.GdxDefinition'
@@ -32,13 +32,13 @@ dependencies {
 	implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
 	implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
     implementation "com.github.tommyettinger:juniper:$juniperVersion:sources"
-    implementation "com.github.tommyettinger:digital:$digitalVersion"
-    implementation "com.github.tommyettinger:funderby:$funderbyVersion"
-    implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion"
-//    implementation "com.github.yellowstonegames.SquidSquad:SquidPlace:$squadVersion"
-//    implementation "com.github.yellowstonegames.SquidSquad:SquidPath:$squadVersion"
+    implementation "com.github.tommyettinger:digital:$digitalVersion:sources"
+    implementation "com.github.tommyettinger:funderby:$funderbyVersion:sources"
+    implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion:sources"
+    implementation "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion:sources"
+    implementation "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion:sources"
+//    implementation "com.github.yellowstonegames.SquidSquad:SquidPlace:$squadVersion:sources"
+//    implementation "com.github.yellowstonegames.SquidSquad:SquidPath:$squadVersion:sources"
     implementation "com.github.tommyettinger:regexodus:0.1.13:sources"
 	implementation project(':core')
 
