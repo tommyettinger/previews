@@ -3,14 +3,9 @@ eclipse.project.name = appName + '-core'
 
 dependencies {
 	api "com.badlogicgames.gdx:gdx:$gdxVersion"
-	api "com.github.tommyettinger:regexodus:$regexodusVersion"
-	api "com.github.tommyettinger:juniper:$juniperVersion"
 	api "com.github.tommyettinger:digital:$digitalVersion"
 	api "com.github.tommyettinger:funderby:$funderbyVersion"
 	api "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion"
 	api "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion"
 	api "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion"
-//	api "com.github.yellowstonegames.SquidSquad:SquidPlace:$squadVersion"
-//	api "com.github.yellowstonegames.SquidSquad:SquidPath:$squadVersion"
-
 }

@@ -3,20 +3,15 @@
 <module rename-to="html">
     <source path="" />
 	<inherits name="com.badlogic.gdx.backends.gdx_backends_gwt" />
-    <inherits name="com.github.tommyettinger.cg.Main" />
-<!--  Should be covered by inheriting squidgrid />-->
+	<inherits name="com.github.tommyettinger.Main" />
 <!--    <inherits name="regexodus"/>-->
+<!--	<inherits name="digital" />-->
 <!--    <inherits name="funderby"/>-->
-<!--    <inherits name="digital" />-->
-<!--    <inherits name="juniper" />-->
-<!--    <inherits name="jdkgdxds" />-->
+<!--	<inherits name="jdkgdxds" />-->
+<!--	<inherits name="juniper" />-->
 <!--    <inherits name="squidcore" />-->
     <inherits name="squidgrid" />
-
-<!--  Not currently used />-->
-<!--    <inherits name="squidplace" />-->
-<!--    <inherits name="squidpath" />-->
-    <entry-point class="com.github.tommyettinger.cg.gwt.GwtLauncher" />
+    <entry-point class="com.github.tommyettinger.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />
     <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>
     <!-- These two lines reduce the work GWT has to do during compilation and also shrink output size. -->

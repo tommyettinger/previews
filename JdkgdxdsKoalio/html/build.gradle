@@ -17,8 +17,8 @@ gwt {
     minHeapSize = '1G'
 
     src = files(file('src/main/java')) // Needs to be in front of "modules" below.
-    modules 'com.github.tommyettinger.cg.GdxDefinition'
-    devModules 'com.github.tommyettinger.cg.GdxDefinitionSuperdev'
+    modules 'com.github.tommyettinger.GdxDefinition'
+    devModules 'com.github.tommyettinger.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler.strict = true
@@ -28,23 +28,22 @@ gwt {
 }
 
 dependencies {
-    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-    implementation "com.github.tommyettinger:regexodus:$regexodusVersion:sources"
-    implementation "com.github.tommyettinger:digital:$digitalVersion:sources"
-    implementation "com.github.tommyettinger:funderby:$funderbyVersion:sources"
-    implementation "com.github.tommyettinger:juniper:$juniperVersion:sources"
-    implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion:sources"
+	implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+	implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+	implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+	implementation "com.github.tommyettinger:regexodus:$regexodusVersion:sources"
+	implementation "com.github.tommyettinger:digital:$digitalVersion:sources"
+	implementation "com.github.tommyettinger:funderby:$funderbyVersion:sources"
+	implementation "com.github.tommyettinger:juniper:$juniperVersion:sources"
+	implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion:sources"
     implementation "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion:sources"
     implementation "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion:sources"
-//    implementation "com.github.yellowstonegames.SquidSquad:SquidPlace:$squadVersion:sources"
-//    implementation "com.github.yellowstonegames.SquidSquad:SquidPath:$squadVersion:sources"
 	implementation project(':core')
 
 //// You can use the lines below instead of the "com.badlogicgames.gdx:gdx-backend-gwt" dependencies.
 //// If you do, follow the steps at https://github.com/tommyettinger/gdx-backends#gwt-290-support
 //// and you can use GWT 2.9.0, which gives you access to Java 11 language features.
+//// These releases use libGDX 1.10.0, and are not compatible with other versions.
 //	implementation "com.github.tommyettinger:gdx-backend-gwt:1.100.1"
 //	implementation "com.github.tommyettinger:gdx-backend-gwt:1.100.1:sources"
 }
@@ -118,7 +117,7 @@ task dist(dependsOn: [clean, compileGwt]) {
                 exclude 'refresh.png' // We don't need this button; this saves some bytes.
             }
             into outputPath
-        }
+            }
         copy {
             from("webapp") {
                 // These next two lines take the index.html page and remove the superdev refresh button.
@@ -129,7 +128,7 @@ task dist(dependsOn: [clean, compileGwt]) {
                 // either remove or comment out only the "filter" line above this.
             }
             into outputPath
-        }
+            }
         copy {
             from "war"
             into outputPath
@@ -145,7 +144,7 @@ task addSource {
 }
 
 task distZip(type: Zip, dependsOn: dist){
-    //// This uses the output of the dist task, which removes the superdev buttons from index.html .
+    //// This uses the output of the dist task, which removes the superdev button from index.html .
     from(outputPath)
     archiveBaseName.set("${appName}-dist")
     //// The result will be in html/build/ with a name containing "-dist".
