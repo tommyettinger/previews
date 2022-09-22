@@ -38,9 +38,7 @@ dependencies {
     implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion:sources"
     implementation "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion:sources"
     implementation "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion:sources"
-//    implementation "com.github.yellowstonegames.SquidSquad:SquidPlace:$squadVersion:sources"
-//    implementation "com.github.yellowstonegames.SquidSquad:SquidPath:$squadVersion:sources"
-	implementation project(':core')
+    implementation project(':core')
 
 //// You can use the lines below instead of the "com.badlogicgames.gdx:gdx-backend-gwt" dependencies.
 //// If you do, follow the steps at https://github.com/tommyettinger/gdx-backends#gwt-290-support
