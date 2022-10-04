@@ -159,6 +159,8 @@ b:shaders/default.vert:shaders/default-cda03bbe3d977a202e93cd96a0a6ca1c.vert:268
 b:shaders/shield.frag:shaders/shield-a6e47495d92ae7b86aabd81379121386.frag:2119:application/unknown:1
 b:shaders/title-fade.frag:shaders/title-fade-c7719cb43f7ade02e784546458b808ef.frag:709:application/unknown:1
 d:sprites:sprites:0:application/unknown:1
+t:sprites/sprites.atlas:sprites/sprites-1041541cd0f74819a413f1f677e06213.atlas:36046:application/unknown:1
+i:sprites/sprites.png:sprites/sprites-307ba1e1863923c1fae54b303379de67.png:1180750:image/png:1
 d:ui:ui:0:application/unknown:1
 t:ui/font-list.fnt:ui/font-list-e0653fce5848e92b65f17f06365978dc.fnt:21142:application/unknown:1
 t:ui/font-subtitle.fnt:ui/font-subtitle-7a54a36c16a2e92426843c7758eac9b8.fnt:21150:application/unknown:1
