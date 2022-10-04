@@ -1,0 +1,2036 @@
+
+sprites.png
+size: 4096, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+arrow
+  rotate: false
+  xy: 755, 682
+  size: 150, 113
+  orig: 150, 113
+  offset: 0, 0
+  index: -1
+arrow-old
+  rotate: false
+  xy: 2463, 1548
+  size: 150, 113
+  orig: 150, 113
+  offset: 0, 0
+  index: -1
+characters/boss/boss-attack-punch/boss-attack-punch
+  rotate: false
+  xy: 3009, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/boss/boss-attack-punch/boss-attack-punch
+  rotate: false
+  xy: 1923, 971
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/boss/boss-attack-punch/boss-attack-punch
+  rotate: false
+  xy: 2181, 1325
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/boss/boss-attack-spell/boss-attack-spell
+  rotate: false
+  xy: 1, 318
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/boss/boss-attack-spell/boss-attack-spell
+  rotate: false
+  xy: 755, 552
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/boss/boss-attack-spell/boss-attack-spell
+  rotate: false
+  xy: 3009, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/boss/boss-attack-spell/boss-attack-spell
+  rotate: false
+  xy: 3139, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+characters/boss/boss-idle-a/boss-idle-a
+  rotate: false
+  xy: 1923, 841
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/boss/boss-idle-a/boss-idle-a
+  rotate: false
+  xy: 2181, 1195
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/boss/boss-idle-a/boss-idle-a
+  rotate: false
+  xy: 2311, 1325
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/boss/boss-idle-a/boss-idle-a
+  rotate: false
+  xy: 1, 188
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+characters/boss/boss-idle-b/boss-idle-b
+  rotate: false
+  xy: 131, 318
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/boss/boss-idle-b/boss-idle-b
+  rotate: false
+  xy: 3139, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/boss/boss-idle-b/boss-idle-b
+  rotate: false
+  xy: 3269, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/boss/boss-idle-b/boss-idle-b
+  rotate: false
+  xy: 2311, 1195
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+characters/boss/boss-portrait/boss-portrait-facing-left
+  rotate: false
+  xy: 575, 253
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+characters/boss/boss-portrait/boss-portrait-facing-right
+  rotate: false
+  xy: 625, 303
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+characters/cleric/cleric-swing/cleric-swing
+  rotate: false
+  xy: 3757, 1593
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/cleric/cleric-walk/cleric-walk
+  rotate: false
+  xy: 3757, 1593
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/cleric/cleric-swing/cleric-swing
+  rotate: false
+  xy: 2329, 1129
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/cleric/cleric-swing/flash/cleric-swing-flash
+  rotate: false
+  xy: 3691, 1593
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/cleric/cleric-walk/flash/cleric-walk-flash
+  rotate: false
+  xy: 3691, 1593
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/cleric/cleric-swing/flash/cleric-swing-flash
+  rotate: false
+  xy: 2263, 1129
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/cleric/cleric-walk/cleric-walk
+  rotate: false
+  xy: 3889, 1593
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/cleric/cleric-walk/flash/cleric-walk-flash
+  rotate: false
+  xy: 3823, 1593
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/thief/thief-swing/flash/thief-swing-flash
+  rotate: false
+  xy: 2961, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/thief/thief-walk/flash/thief-walk-flash
+  rotate: false
+  xy: 2961, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/thief/thief-swing/flash/thief-swing-flash
+  rotate: false
+  xy: 3027, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/thief/thief-swing/thief-swing
+  rotate: false
+  xy: 3093, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/thief/thief-walk/thief-walk
+  rotate: false
+  xy: 3093, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/thief/thief-swing/thief-swing
+  rotate: false
+  xy: 3159, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/thief/thief-walk/flash/thief-walk-flash
+  rotate: false
+  xy: 3225, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/thief/thief-walk/thief-walk
+  rotate: false
+  xy: 3291, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/warrior/warrior-swing/flash/warrior-swing-flash
+  rotate: false
+  xy: 3357, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/warrior/warrior-walk/flash/warrior-walk-flash
+  rotate: false
+  xy: 3357, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/warrior/warrior-swing/flash/warrior-swing-flash
+  rotate: false
+  xy: 3423, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/warrior/warrior-swing/warrior-swing
+  rotate: false
+  xy: 3489, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/warrior/warrior-walk/warrior-walk
+  rotate: false
+  xy: 3489, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/warrior/warrior-swing/warrior-swing
+  rotate: false
+  xy: 3555, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/warrior/warrior-walk/flash/warrior-walk-flash
+  rotate: false
+  xy: 3621, 1491
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/warrior/warrior-walk/warrior-walk
+  rotate: false
+  xy: 2631, 1401
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-swing/flash/old/wizard-swing-flash
+  rotate: false
+  xy: 2697, 1401
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-walk/flash/old/wizard-walk-flash
+  rotate: false
+  xy: 2697, 1401
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-swing/flash/old/wizard-swing-flash
+  rotate: false
+  xy: 2763, 1401
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 1, 58
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 131, 188
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3269, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3399, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 131, 58
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3399, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3529, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3529, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 7
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3659, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 8
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3659, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 9
+characters/wizard/wizard-swing/flash/wizard-swing-flash
+  rotate: false
+  xy: 3789, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 10
+characters/wizard/wizard-swing/old/wizard-swing
+  rotate: false
+  xy: 2829, 1401
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-walk/old/wizard-walk
+  rotate: false
+  xy: 2829, 1401
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-swing/old/wizard-swing
+  rotate: false
+  xy: 2895, 1429
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3789, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3919, 1919
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3919, 1789
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 2053, 971
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 2053, 841
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3009, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3139, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3269, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 7
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3399, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 8
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3529, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 9
+characters/wizard/wizard-swing/wizard-swing
+  rotate: false
+  xy: 3659, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 10
+characters/wizard/wizard-walk/flash/old/wizard-walk-flash
+  rotate: false
+  xy: 2961, 1425
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 3789, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 3789, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 3919, 1659
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 261, 318
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 261, 188
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 261, 58
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 907, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+characters/wizard/wizard-walk/flash/wizard-walk-flash
+  rotate: false
+  xy: 1037, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 7
+characters/wizard/wizard-walk/old/wizard-walk
+  rotate: false
+  xy: 3027, 1425
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 1167, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 1297, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 1427, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 1427, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 1557, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 1687, 667
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 2615, 1533
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+characters/wizard/wizard-walk/wizard-walk
+  rotate: false
+  xy: 2745, 1533
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 7
+gems/gem-blue/gem-blue-idle/gem-blue-idle
+  rotate: false
+  xy: 3955, 1593
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-blue/gem-blue-idle/gem-blue-idle
+  rotate: false
+  xy: 2183, 1047
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-blue/gem-blue-idle/gem-blue-idle
+  rotate: false
+  xy: 2183, 981
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-blue/gem-blue-idle/gem-blue-idle
+  rotate: false
+  xy: 2183, 915
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-blue/gem-blue-idle/gem-blue-idle
+  rotate: false
+  xy: 2183, 849
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+gems/gem-blue/gem-blue-spin/gem-blue-spin
+  rotate: false
+  xy: 2441, 1176
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-blue/gem-blue-spin/gem-blue-spin
+  rotate: false
+  xy: 1923, 775
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-blue/gem-blue-spin/gem-blue-spin
+  rotate: false
+  xy: 1989, 775
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-blue/gem-blue-spin/gem-blue-spin
+  rotate: false
+  xy: 2055, 775
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-blue/gem-blue-spin/gem-blue-spin
+  rotate: false
+  xy: 1919, 709
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+gems/gem-green/gem-green-idle/gem-green-idle
+  rotate: false
+  xy: 1985, 709
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-green/gem-green-idle/gem-green-idle
+  rotate: false
+  xy: 2051, 709
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-green/gem-green-idle/gem-green-idle
+  rotate: false
+  xy: 2121, 775
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-green/gem-green-idle/gem-green-idle
+  rotate: false
+  xy: 2117, 709
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-green/gem-green-idle/gem-green-idle
+  rotate: false
+  xy: 2187, 783
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+gems/gem-green/gem-green-spin/gem-green-spin
+  rotate: false
+  xy: 755, 486
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-green/gem-green-spin/gem-green-spin
+  rotate: false
+  xy: 821, 486
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-green/gem-green-spin/gem-green-spin
+  rotate: false
+  xy: 887, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-green/gem-green-spin/gem-green-spin
+  rotate: false
+  xy: 953, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-green/gem-green-spin/gem-green-spin
+  rotate: false
+  xy: 1019, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1085, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1151, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1217, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1283, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1349, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1415, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 5
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1481, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 6
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1547, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 7
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1613, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 8
+gems/gem-multi/gem-multi-idle/gem-multi-idle
+  rotate: false
+  xy: 1679, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 9
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 1745, 499
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 3691, 1527
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 3757, 1527
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 3823, 1527
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 3889, 1527
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 3955, 1527
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 5
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 2565, 1432
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 6
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 2543, 1366
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 7
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 2543, 1300
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 8
+gems/gem-multi/gem-multi-spin/gem-multi-spin
+  rotate: false
+  xy: 2543, 1234
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 9
+gems/gem-red/gem-red-idle/gem-red-idle
+  rotate: false
+  xy: 2429, 1110
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-red/gem-red-idle/gem-red-idle
+  rotate: false
+  xy: 2541, 1168
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-red/gem-red-idle/gem-red-idle
+  rotate: false
+  xy: 2529, 1102
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-red/gem-red-idle/gem-red-idle
+  rotate: false
+  xy: 431, 447
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-red/gem-red-idle/gem-red-idle
+  rotate: false
+  xy: 497, 447
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+gems/gem-red/gem-red-spin/gem-red-spin
+  rotate: false
+  xy: 563, 447
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+gems/gem-red/gem-red-spin/gem-red-spin
+  rotate: false
+  xy: 629, 447
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+gems/gem-red/gem-red-spin/gem-red-spin
+  rotate: false
+  xy: 2631, 1467
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+gems/gem-red/gem-red-spin/gem-red-spin
+  rotate: false
+  xy: 2697, 1467
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+gems/gem-red/gem-red-spin/gem-red-spin
+  rotate: false
+  xy: 2763, 1467
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+icons/input-prompts
+  rotate: false
+  xy: 2463, 1663
+  size: 544, 384
+  orig: 544, 384
+  offset: 0, 0
+  index: -1
+libgdx
+  rotate: false
+  xy: 1, 448
+  size: 378, 63
+  orig: 378, 63
+  offset: 0, 0
+  index: -1
+ninepatch/debug
+  rotate: false
+  xy: 525, 147
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+ninepatch/glass
+  rotate: false
+  xy: 2875, 1561
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-active
+  rotate: false
+  xy: 2463, 1446
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-corner-bl
+  rotate: false
+  xy: 885, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-corner-br
+  rotate: false
+  xy: 987, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-corner-tl
+  rotate: false
+  xy: 1089, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-corner-tr
+  rotate: false
+  xy: 1191, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-corners
+  rotate: false
+  xy: 1293, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-dim
+  rotate: false
+  xy: 1395, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-green
+  rotate: false
+  xy: 1497, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-tab
+  rotate: false
+  xy: 1817, 683
+  size: 100, 112
+  orig: 100, 112
+  offset: 0, 0
+  index: -1
+ninepatch/glass-thick
+  rotate: false
+  xy: 1599, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/glass-yellow
+  rotate: false
+  xy: 1701, 565
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal
+  rotate: false
+  xy: 2441, 1344
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-blue
+  rotate: false
+  xy: 2441, 1242
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-blue-corner
+  rotate: false
+  xy: 2977, 1557
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-green
+  rotate: false
+  xy: 3079, 1557
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-green-corner
+  rotate: false
+  xy: 3181, 1557
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-plate
+  rotate: false
+  xy: 2181, 1113
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+ninepatch/metal-red
+  rotate: false
+  xy: 3283, 1557
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-red-corner
+  rotate: false
+  xy: 3385, 1557
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-yellow
+  rotate: false
+  xy: 3487, 1557
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/metal-yellow-corner
+  rotate: false
+  xy: 3589, 1557
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ninepatch/panel
+  rotate: false
+  xy: 2829, 1467
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+particles/circle
+  rotate: false
+  xy: 2875, 1543
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+particles/dollars
+  rotate: false
+  xy: 425, 67
+  size: 28, 28
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+particles/font-points-0
+  rotate: false
+  xy: 885, 670
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-1
+  rotate: false
+  xy: 887, 487
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-2
+  rotate: false
+  xy: 2543, 1434
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-3
+  rotate: false
+  xy: 4083, 2037
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-4
+  rotate: false
+  xy: 2429, 1183
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-5
+  rotate: false
+  xy: 2595, 1156
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-6
+  rotate: false
+  xy: 2615, 1521
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-7
+  rotate: false
+  xy: 3263, 1429
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-8
+  rotate: false
+  xy: 381, 451
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/font-points-9
+  rotate: false
+  xy: 1817, 671
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: 0
+particles/line
+  rotate: false
+  xy: 3663, 1473
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+particles/ring
+  rotate: false
+  xy: 2385, 1077
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+particles/smoke
+  rotate: false
+  xy: 2895, 1495
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+particles/sparkle
+  rotate: false
+  xy: 675, 354
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
+particles/sparks
+  rotate: false
+  xy: 1, 5
+  size: 51, 51
+  orig: 51, 51
+  offset: 0, 0
+  index: 0
+pets/cat
+  rotate: false
+  xy: 4049, 1659
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: 0
+pets/cat
+  rotate: false
+  xy: 1919, 683
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: 1
+pets/cat
+  rotate: false
+  xy: 2895, 1403
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: 2
+pets/cat
+  rotate: false
+  xy: 1905, 657
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: 3
+pets/cat
+  rotate: false
+  xy: 2317, 1003
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: 4
+pets/cat
+  rotate: false
+  xy: 2351, 1037
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: 5
+pets/dog
+  rotate: false
+  xy: 559, 147
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+pets/dog
+  rotate: false
+  xy: 4049, 1685
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+pets/dog
+  rotate: false
+  xy: 593, 153
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+pets/dog
+  rotate: false
+  xy: 1803, 567
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+pets/dog
+  rotate: false
+  xy: 1837, 583
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+pets/dog
+  rotate: false
+  xy: 2283, 963
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+pets/kitten
+  rotate: false
+  xy: 2317, 1029
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+pets/kitten
+  rotate: false
+  xy: 2385, 1095
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+pets/kitten
+  rotate: false
+  xy: 1871, 583
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+pets/kitten
+  rotate: false
+  xy: 2283, 929
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+pixel
+  rotate: false
+  xy: 885, 667
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+pixel-ui-pack/blue-progress-bar
+  rotate: false
+  xy: 729, 495
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+pixel-ui-pack/green-progress-bar
+  rotate: false
+  xy: 2609, 1414
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+pixel-ui-pack/pixel-ui
+  rotate: false
+  xy: 1923, 1455
+  size: 538, 592
+  orig: 538, 592
+  offset: 0, 0
+  index: -1
+pixel-ui-pack/red-progress-bar
+  rotate: false
+  xy: 455, 79
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+pixel-ui-pack/white-progress-bar
+  rotate: false
+  xy: 2283, 911
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+temp-creatures/oryx-creatures
+  rotate: false
+  xy: 1, 1423
+  size: 1920, 624
+  orig: 1920, 624
+  offset: 0, 0
+  index: -1
+temp-creatures/oryx-creatures-flash
+  rotate: false
+  xy: 1, 797
+  size: 1920, 624
+  orig: 1920, 624
+  offset: 0, 0
+  index: -1
+temp-effects/oryx-effects
+  rotate: false
+  xy: 1923, 1101
+  size: 256, 352
+  orig: 256, 352
+  offset: 0, 0
+  index: -1
+temp-items/oryx-items
+  rotate: false
+  xy: 1, 513
+  size: 752, 282
+  orig: 752, 282
+  offset: 0, 0
+  index: -1
+weapons/axe-glow/axe-glow
+  rotate: false
+  xy: 4049, 1983
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 0
+weapons/axe-glow/axe-glow
+  rotate: false
+  xy: 2395, 1129
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+weapons/axe-glow/axe-glow
+  rotate: false
+  xy: 2507, 1176
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+weapons/axe-glow/axe-glow
+  rotate: false
+  xy: 4049, 1917
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+weapons/axe-glow/axe-glow
+  rotate: false
+  xy: 2495, 1110
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+weapons/axe-glow/axe-glow
+  rotate: false
+  xy: 4049, 1851
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+weapons/axe-glow/axe-glow
+  rotate: false
+  xy: 4049, 1785
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 6
+weapons/axe/axe
+  rotate: false
+  xy: 4049, 1719
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 0
+weapons/axe/axe
+  rotate: false
+  xy: 695, 447
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+weapons/axe/axe
+  rotate: false
+  xy: 3093, 1425
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+weapons/axe/axe
+  rotate: false
+  xy: 3127, 1425
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+weapons/axe/axe
+  rotate: false
+  xy: 3161, 1425
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+weapons/axe/axe
+  rotate: false
+  xy: 3195, 1425
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+weapons/axe/axe
+  rotate: false
+  xy: 3229, 1425
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 6
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 2565, 1498
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 54, 8
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 381, 463
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 104, 8
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 154, 8
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 204, 8
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 254, 8
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 6
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 304, 8
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 7
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 3263, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 8
+weapons/bomb/bomb-idle/bomb-idle
+  rotate: false
+  xy: 3313, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 9
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 3363, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 3413, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 3463, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 3513, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 3563, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 3613, 1441
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 354, 8
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 6
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 425, 397
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 7
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 425, 347
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 8
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 475, 397
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 9
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 425, 297
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 10
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 475, 347
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 11
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 525, 397
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 12
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 425, 247
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 13
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 475, 297
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 14
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 525, 347
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 15
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 575, 397
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 16
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 425, 197
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 17
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 475, 247
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 18
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 525, 297
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 19
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 575, 347
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 20
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 625, 397
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 21
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 425, 147
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 22
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 475, 197
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 23
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 525, 247
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 24
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 575, 297
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 25
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 625, 347
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 26
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 675, 397
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 27
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 425, 97
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 28
+weapons/bomb/bomb-lit/bomb-lit
+  rotate: false
+  xy: 475, 147
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 29
+weapons/club-glow/club-glow
+  rotate: false
+  xy: 4021, 1593
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 0
+weapons/club-glow/club-glow
+  rotate: false
+  xy: 4021, 1527
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+weapons/club-glow/club-glow
+  rotate: false
+  xy: 391, 397
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+weapons/club-glow/club-glow
+  rotate: false
+  xy: 391, 331
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+weapons/club-glow/club-glow
+  rotate: false
+  xy: 391, 265
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+weapons/club-glow/club-glow
+  rotate: false
+  xy: 391, 199
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+weapons/club-glow/club-glow
+  rotate: false
+  xy: 391, 133
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 6
+weapons/club/club
+  rotate: false
+  xy: 391, 67
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 0
+weapons/club/club
+  rotate: false
+  xy: 404, 1
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+weapons/club/club
+  rotate: false
+  xy: 525, 181
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+weapons/club/club
+  rotate: false
+  xy: 475, 81
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+weapons/club/club
+  rotate: false
+  xy: 559, 181
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+weapons/club/club
+  rotate: false
+  xy: 593, 187
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+weapons/club/club
+  rotate: false
+  xy: 509, 81
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 6
+weapons/dagger-glow/dagger-glow
+  rotate: false
+  xy: 543, 81
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 0
+weapons/dagger-glow/dagger-glow
+  rotate: false
+  xy: 577, 81
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+weapons/dagger-glow/dagger-glow
+  rotate: false
+  xy: 1803, 601
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+weapons/dagger-glow/dagger-glow
+  rotate: false
+  xy: 1837, 617
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+weapons/dagger-glow/dagger-glow
+  rotate: false
+  xy: 1871, 617
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+weapons/dagger-glow/dagger-glow
+  rotate: false
+  xy: 2249, 1047
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+weapons/dagger-glow/dagger-glow
+  rotate: false
+  xy: 2249, 981
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 6
+weapons/dagger/dagger
+  rotate: false
+  xy: 2249, 915
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 0
+weapons/dagger/dagger
+  rotate: false
+  xy: 2249, 849
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+weapons/dagger/dagger
+  rotate: false
+  xy: 2253, 783
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+weapons/dagger/dagger
+  rotate: false
+  xy: 2283, 1063
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+weapons/dagger/dagger
+  rotate: false
+  xy: 2317, 1063
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+weapons/dagger/dagger
+  rotate: false
+  xy: 2283, 997
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+weapons/dagger/dagger
+  rotate: false
+  xy: 2351, 1063
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 6
