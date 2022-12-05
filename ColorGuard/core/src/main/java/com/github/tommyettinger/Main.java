@@ -115,13 +115,17 @@ public class Main extends ApplicationAdapter {
                 land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
                 int hash = IntPointHash.hashAll(x, y, seed);
                 if (hash >>> 26 < 5) {
-//                if(hash >>> 27 < 5) {
                     IntList ps = ColorGuardData.placeable.getAt(land[x][y]);
                     int psi = ps.get((hash >>> 16) % ps.size());
                     ObjectList<Animation<Sprite>> angles = units.get(psi);
                     ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
                     int angle = ((int) ((-hash & 0xFFFFFF) * 1e-3) & 15) & 3;
-                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 450, (hash >>> 6));
+                    // SEE HERE: without an origin, just check the numbers for x and y
+//                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 450, (hash >>> 6));
+                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), 0, 0, (hash >>> 6));
+                    // SEE HERE: with an origin, note that the x and y are different here by the origin's values.
+                    as.setOrigin(20,-20);
+                    as.setOriginBasedPosition((x - y) * 40 - 20, (x + y) * 20 + 430);
                     enemies.put(Coord.get(x, y), as);
                 }
             }
