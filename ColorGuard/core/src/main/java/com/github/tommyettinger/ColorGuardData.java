@@ -1,13 +1,11 @@
 package com.github.tommyettinger;
 
-import com.github.tommyettinger.digital.BitConversion;
-import com.github.tommyettinger.digital.MathTools;
 import com.github.tommyettinger.ds.*;
 import com.github.yellowstonegames.grid.Noise;
 
 import java.util.List;
 
-import static com.github.tommyettinger.Main.hashAll;
+import static com.github.yellowstonegames.grid.IntPointHash.hashAll;
 
 public class ColorGuardData {
     public static class Unit {
@@ -90,9 +88,8 @@ public class ColorGuardData {
 //            new Unit("Road_Center")
             );
 
-    public static String queryTerrain(float x, float y, int seed){
-        int r = hashAll(BitConversion.floatToIntBits(x),
-                BitConversion.floatToIntBits(y), seed);
+    public static String queryTerrain(int x, int y, int seed){
+        int r = hashAll(x, y, seed);
         Noise n = Noise.instance;
         n.setNoiseType(Noise.SIMPLEX_FRACTAL);
         n.setSeed(seed);
@@ -101,7 +98,7 @@ public class ColorGuardData {
         n.setFractalOctaves(4);
         float high = n.getConfiguredNoise(x, y, n.getConfiguredNoise(-10-x, -10-y));
         n.setSeed(seed ^ 0xC965815B);
-        n.setFrequency(0x7.09p-7f);
+        n.setFrequency(0x7.89p-7f);
         n.setFractalType(Noise.RIDGED_MULTI);
         n.setFractalOctaves(3);
         high = high * 0.5f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(-10-x, -10-y)) * 0.5f;

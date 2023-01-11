@@ -19,6 +19,8 @@ import com.github.tommyettinger.ds.ObjectList;
 import com.github.yellowstonegames.grid.Coord;
 import com.github.yellowstonegames.grid.CoordObjectOrderedMap;
 
+import static com.github.yellowstonegames.grid.IntPointHash.hashAll;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 
@@ -38,7 +40,7 @@ public class Main extends ApplicationAdapter {
     public CoordObjectOrderedMap<AnimatedSprite> enemies;
     public AnimatedSprite hero, receiving;
     public Coord heroPosition;
-    public int[][] land = new int[20][20];
+    public int[][] land = new int[30][30];
 
     public BitmapFont font;
     public int seed = 1234;
@@ -49,7 +51,7 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch(4000, shader);
         viewport = new ScreenViewport();
         camera = viewport.getCamera();
-        camera.position.set(0, 20 * 20 + 450 - 10f, 0f);
+        camera.position.set(0, 20 * land.length + 430 + 10f, 0f);
 
         atlas = new TextureAtlas("ColorGuard.atlas");
         font = new BitmapFont(Gdx.files.internal("NanoOKExtended.fnt"), atlas.findRegion("NanoOKExtended"));
@@ -115,17 +117,17 @@ public class Main extends ApplicationAdapter {
 
     public void placeUnits() {
         enemies.clear();
-        for (int x = 19, nx = 0; x >= nx; x--) {
-            for (int y = 19, ny = 0; y >= ny; y--) {
+        for (int x = land.length - 1, nx = 0; x >= nx; x--) {
+            for (int y = land.length - 1, ny = 0; y >= ny; y--) {
                 land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
                 int hash = hashAll(x, y, seed);
                 if (hash >>> 26 < 5) {
                     IntList ps = ColorGuardData.placeable.getAt(land[x][y]);
                     int psi = ps.get((hash >>> 16) % ps.size());
                     ObjectList<Animation<Sprite>> angles = units.get(psi);
-                    ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
+//                    ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
                     int angle = ((int) ((-hash & 0xFFFFFF) * 1e-3) & 15) & 3;
-                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 450, (hash >>> 6));
+                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 430, (hash >>> 6));
                     enemies.put(Coord.get(x, y), as);
                 }
             }
@@ -184,22 +186,21 @@ public class Main extends ApplicationAdapter {
 //        batch.setColor((208 + (time>>>12)%12)/255f, 0.5f, 0.5f, 1f);
 //        batch.setColor((time >>> 12) % 208 / 255f, 0.5f, 0.5f, 1f);
 
-        int angle;
-        Sprite s, rec;
-        for (int x = 19, nx = 0; x >= nx; x--) {
-            for (int y = 19, ny = 0; y >= ny; y--) {
+        Sprite s;
+        for (int x = land.length - 1, nx = 0; x >= nx; x--) {
+            for (int y = land.length - 1, ny = 0; y >= ny; y--) {
 //                land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
                 int hash = hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
-                s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
+                s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 430 - 4);
                 s.setColor((160 + land[x][y]) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
             }
         }
-        for (int x = 19, nx = 0; x >= nx; x--) {
-            for (int y = 19, ny = 0; y >= ny; y--) {
-                int hash = hashAll(x, y, seed);
-                int q = land[x][y];
+        for (int x = land.length - 1, nx = 0; x >= nx; x--) {
+            for (int y = land.length - 1, ny = 0; y >= ny; y--) {
+//                int hash = hashAll(x, y, seed);
+//                int q = land[x][y];
                 AnimatedSprite as;
                 if((as = enemies.get(Coord.get(x, y))) != null) {
                     as.draw(batch);
@@ -332,40 +333,4 @@ public class Main extends ApplicationAdapter {
                     "                 (lab * lab * lab)," +
                     "                 0.0, 1.0)), v_color.a * color.a);\n" +
                     "}\n";
-    /**
-     * A 32-bit point hash that smashes x and y into s using XOR and multiplications by harmonious numbers,
-     * then runs a simple unary hash on s and returns it. Has better performance than HastyPointHash, especially for
-     * ints, and has slightly fewer collisions in a hash table of points. GWT-optimized. Inspired by Pelle Evensen's
-     * rrxmrrxmsx_0 unary hash, though this doesn't use its code or its full algorithm. The unary hash used here has
-     * been stripped down heavily, both for speed and because unless points are selected specifically to target
-     * flaws in the hash, it doesn't need the intense resistance to bad inputs that rrxmrrxmsx_0 has.
-     * @param x x position, as an int
-     * @param y y position, as an int
-     * @param s any int, a seed to be able to produce many hashes for a given point
-     * @return 32-bit hash of the x,y point with the given state s
-     */
-    public static int hashAll(int x, int y, int s) {
-        s ^= BitConversion.imul(x, 0xC13FA9A9) ^ BitConversion.imul(y, 0x91E10DA5);
-        s ^= (BitConversion.imul(s, s) | 1);
-        return (s ^ (s << 19 | s >>> 13) ^ (s << 5 | s >>> 27)) * 0x125493 ^ 0xD1B54A35;
-    }
-    /**
-     * A 32-bit point hash that smashes x, y, and z into s using XOR and multiplications by harmonious numbers,
-     * then runs a simple unary hash on s and returns it. Has better performance than HastyPointHash, especially for
-     * ints, and has slightly fewer collisions in a hash table of points. GWT-optimized. Inspired by Pelle Evensen's
-     * rrxmrrxmsx_0 unary hash, though this doesn't use its code or its full algorithm. The unary hash used here has
-     * been stripped down heavily, both for speed and because unless points are selected specifically to target
-     flaws in the hash, it doesn't need the intense resistance to bad inputs that rrxmrrxmsx_0 has.
-     * @param x x position, as an int
-     * @param y y position, as an int
-     * @param z z position, as an int
-     * @param s any int, a seed to be able to produce many hashes for a given point
-     * @return 32-bit hash of the x,y,z point with the given state s
-     */
-    public static int hashAll(int x, int y, int z, int s) {
-        s ^= BitConversion.imul(x, 0xD1B54A33) ^ BitConversion.imul(y, 0xABC98389) ^ BitConversion.imul(z, 0x8CB92BA7);
-        s ^= (BitConversion.imul(s, s) | 1);
-        return (s ^ (s << 19 | s >>> 13) ^ (s << 5 | s >>> 27)) * 0x125493 ^ 0xD1B54A35;
-    }
-
 }
