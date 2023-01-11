@@ -13,11 +13,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.github.tommyettinger.digital.BitConversion;
 import com.github.tommyettinger.ds.IntList;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.yellowstonegames.grid.Coord;
 import com.github.yellowstonegames.grid.CoordObjectOrderedMap;
-import com.github.yellowstonegames.grid.IntPointHash;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -109,28 +109,28 @@ public class Main extends ApplicationAdapter {
                 return super.longPress(x, y);
             }
         }));
+        placeUnits();
+        startTime = TimeUtils.millis();
+    }
 
+    public void placeUnits() {
+        enemies.clear();
         for (int x = 19, nx = 0; x >= nx; x--) {
             for (int y = 19, ny = 0; y >= ny; y--) {
                 land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
-                int hash = IntPointHash.hashAll(x, y, seed);
+                int hash = hashAll(x, y, seed);
                 if (hash >>> 26 < 5) {
                     IntList ps = ColorGuardData.placeable.getAt(land[x][y]);
                     int psi = ps.get((hash >>> 16) % ps.size());
                     ObjectList<Animation<Sprite>> angles = units.get(psi);
                     ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
                     int angle = ((int) ((-hash & 0xFFFFFF) * 1e-3) & 15) & 3;
-                    // SEE HERE: without an origin, just check the numbers for x and y
-//                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 450, (hash >>> 6));
-                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), 0, 0, (hash >>> 6));
-                    // SEE HERE: with an origin, note that the x and y are different here by the origin's values.
-                    as.setOrigin(20,-20);
-                    as.setOriginBasedPosition((x - y) * 40 - 20, (x + y) * 20 + 430);
+                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 450, (hash >>> 6));
                     enemies.put(Coord.get(x, y), as);
                 }
             }
         }
-        startTime = TimeUtils.millis();
+
     }
 
     @Override
@@ -161,10 +161,14 @@ public class Main extends ApplicationAdapter {
             viewport.setUnitsPerPixel(viewport.getUnitsPerPixel() * 2f);
             viewport.update(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), false);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R))
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
             ++seed;
-        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            placeUnits();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             --seed;
+            placeUnits();
+        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             Gdx.app.exit();
         camera.position.set(MathUtils.round(camera.position.x), MathUtils.round(camera.position.y), camera.position.z);
@@ -185,7 +189,7 @@ public class Main extends ApplicationAdapter {
         for (int x = 19, nx = 0; x >= nx; x--) {
             for (int y = 19, ny = 0; y >= ny; y--) {
 //                land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
-                int hash = IntPointHash.hashAll(x, y, seed);
+                int hash = hashAll(x, y, seed);
                 s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
                 s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
                 s.setColor((160 + land[x][y]) / 255f, 0.5f, 0.5f, 1f);
@@ -194,7 +198,7 @@ public class Main extends ApplicationAdapter {
         }
         for (int x = 19, nx = 0; x >= nx; x--) {
             for (int y = 19, ny = 0; y >= ny; y--) {
-                int hash = IntPointHash.hashAll(x, y, seed);
+                int hash = hashAll(x, y, seed);
                 int q = land[x][y];
                 AnimatedSprite as;
                 if((as = enemies.get(Coord.get(x, y))) != null) {
@@ -328,5 +332,40 @@ public class Main extends ApplicationAdapter {
                     "                 (lab * lab * lab)," +
                     "                 0.0, 1.0)), v_color.a * color.a);\n" +
                     "}\n";
+    /**
+     * A 32-bit point hash that smashes x and y into s using XOR and multiplications by harmonious numbers,
+     * then runs a simple unary hash on s and returns it. Has better performance than HastyPointHash, especially for
+     * ints, and has slightly fewer collisions in a hash table of points. GWT-optimized. Inspired by Pelle Evensen's
+     * rrxmrrxmsx_0 unary hash, though this doesn't use its code or its full algorithm. The unary hash used here has
+     * been stripped down heavily, both for speed and because unless points are selected specifically to target
+     * flaws in the hash, it doesn't need the intense resistance to bad inputs that rrxmrrxmsx_0 has.
+     * @param x x position, as an int
+     * @param y y position, as an int
+     * @param s any int, a seed to be able to produce many hashes for a given point
+     * @return 32-bit hash of the x,y point with the given state s
+     */
+    public static int hashAll(int x, int y, int s) {
+        s ^= BitConversion.imul(x, 0xC13FA9A9) ^ BitConversion.imul(y, 0x91E10DA5);
+        s ^= (BitConversion.imul(s, s) | 1);
+        return (s ^ (s << 19 | s >>> 13) ^ (s << 5 | s >>> 27)) * 0x125493 ^ 0xD1B54A35;
+    }
+    /**
+     * A 32-bit point hash that smashes x, y, and z into s using XOR and multiplications by harmonious numbers,
+     * then runs a simple unary hash on s and returns it. Has better performance than HastyPointHash, especially for
+     * ints, and has slightly fewer collisions in a hash table of points. GWT-optimized. Inspired by Pelle Evensen's
+     * rrxmrrxmsx_0 unary hash, though this doesn't use its code or its full algorithm. The unary hash used here has
+     * been stripped down heavily, both for speed and because unless points are selected specifically to target
+     flaws in the hash, it doesn't need the intense resistance to bad inputs that rrxmrrxmsx_0 has.
+     * @param x x position, as an int
+     * @param y y position, as an int
+     * @param z z position, as an int
+     * @param s any int, a seed to be able to produce many hashes for a given point
+     * @return 32-bit hash of the x,y,z point with the given state s
+     */
+    public static int hashAll(int x, int y, int z, int s) {
+        s ^= BitConversion.imul(x, 0xD1B54A33) ^ BitConversion.imul(y, 0xABC98389) ^ BitConversion.imul(z, 0x8CB92BA7);
+        s ^= (BitConversion.imul(s, s) | 1);
+        return (s ^ (s << 19 | s >>> 13) ^ (s << 5 | s >>> 27)) * 0x125493 ^ 0xD1B54A35;
+    }
 
 }
