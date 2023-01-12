@@ -142,7 +142,11 @@ public class MainOld extends ApplicationAdapter {
 
         shader.setUniformi("u_texPalette", 1);
         Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
-        final long time = TimeUtils.timeSinceMillis(startTime);
+        long time = TimeUtils.timeSinceMillis(startTime);
+        if(time > 16000) {
+            startTime = TimeUtils.millis();
+            time = 0;
+        }
 //        batch.setColor((208 + (time>>>12)%12)/255f, 0.5f, 0.5f, 1f);
 //        batch.setColor((time >>> 12) % 208 / 255f, 0.5f, 0.5f, 1f);
 
@@ -175,16 +179,20 @@ public class MainOld extends ApplicationAdapter {
                     int psi = ps.get((hash >>> 16) % ps.size());
                     ObjectList<Animation<Sprite>> angles = units.get(psi);
                     ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
-                    angle = ((int) ((time - hash & 0xFFFFFF) * 1e-3) & 15) % angles.size();
-                    float t = (time - hash & 0xFFFFFF) * 1e-3f;
+                    angle = (int) (time * 0.5e-3f) % angles.size();
+                    float t = time * 1e-3f % 2f;
                     s = angles.get(angle).getKeyFrame(t);
                     if(angle >= 4) {
-                        rec = receives.get(psi).get(angle - 4).getKeyFrame(t, true);
+                        Animation<Sprite> recAnim = receives.get(psi).get(angle - 4);
                         int rx = x, ry = y, range = (angle < 8) ? unit.primaryRange : unit.secondaryRange;
-                        if((angle & 1) == 0) rx -= range * (-(angle & 2) >> 31 | 1);
-                        else ry -= range * (-(angle & 2) >> 31 | 1);
-                        rec.setPosition((rx - ry) * 40 - 40, (rx + ry) * 20 + 450);
-                        rec.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
+                        if(t >= 0.25f + range * 0.25f && !recAnim.isAnimationFinished(t - 0.25f - range * 0.25f)) {
+                            rec = recAnim.getKeyFrame(t - 0.25f - range * 0.25f, false);
+                            if ((angle & 1) == 0) rx -= range * (-(angle & 2) >> 31 | 1);
+                            else ry -= range * (-(angle & 2) >> 31 | 1);
+                            rec.setPosition((rx - ry) * 40 - 40, (rx + ry) * 20 + 450);
+                            rec.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
+                        }
+                        else rec = null;
                     }
                     else rec = null;
                     s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450);

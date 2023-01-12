@@ -11,7 +11,7 @@
 <!--    <inherits name="juniper" />-->
 <!--    <inherits name="jdkgdxds" />-->
 <!--    <inherits name="squidcore" />-->
-    <inherits name="squidgrid" />
+    <inherits name="com.github.yellowstonegames.squidgrid" />
 
 <!--  Not currently used />-->
 <!--    <inherits name="squidplace" />-->
