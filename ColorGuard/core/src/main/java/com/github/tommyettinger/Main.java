@@ -3,6 +3,7 @@ package com.github.tommyettinger;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,12 +11,13 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.github.tommyettinger.digital.BitConversion;
 import com.github.tommyettinger.ds.IntList;
 import com.github.tommyettinger.ds.ObjectList;
+import com.github.tommyettinger.random.ChopRandom;
 import com.github.yellowstonegames.grid.Coord;
 import com.github.yellowstonegames.grid.CoordObjectOrderedMap;
 
@@ -30,7 +32,9 @@ public class Main extends ApplicationAdapter {
     public ShaderProgram shader;
     public ScreenViewport viewport;
     public Camera camera;
+    public Vector3 temp = new Vector3();
     public long startTime;
+    public ChopRandom random;
     public ObjectList<Animation<Sprite>> terrain;
     // each Animation<Sprite> is one facing of one unit.
     // each ObjectList<Animation<Sprite>> is the list of 4 facings plus 4 or 8 more for attacks
@@ -39,7 +43,7 @@ public class Main extends ApplicationAdapter {
     public ObjectList<ObjectList<Animation<Sprite>>> receives;
     public CoordObjectOrderedMap<AnimatedSprite> enemies;
     public AnimatedSprite hero, receiving;
-    public Coord heroPosition;
+    public Coord heroPosition, target;
     public int[][] land = new int[30][30];
 
     public BitmapFont font;
@@ -53,6 +57,7 @@ public class Main extends ApplicationAdapter {
         camera = viewport.getCamera();
         camera.position.set(0, 20 * land.length + 430 + 10f, 0f);
 
+        random = new ChopRandom(seed);
         atlas = new TextureAtlas("ColorGuard.atlas");
         font = new BitmapFont(Gdx.files.internal("NanoOKExtended.fnt"), atlas.findRegion("NanoOKExtended"));
         palettes = new Texture("ColorGuardMasterPalette.png");
@@ -86,7 +91,20 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-        Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
+        Gdx.input.setInputProcessor(
+//                new InputAdapter(){
+//                    @Override
+//                    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+//                        camera.unproject(temp.set(screenX, screenY, 0));
+//                        temp.x = (temp.x + 40) /  80f;
+//                        temp.y = (temp.y - 426) / 40f;
+//                        int worldX = (int)((temp.x + temp.y));
+//                        int worldY = (int)((temp.y - temp.x));
+//                        target = Coord.get(worldX, worldY);
+//                        return true;
+//                    }
+//                }
+                new GestureDetector(new GestureDetector.GestureAdapter() {
             @Override
             public boolean zoom(float initialDistance, float distance) {
                 if ((TimeUtils.timeSinceMillis(startTime) & 63) < 3) {
@@ -110,29 +128,36 @@ public class Main extends ApplicationAdapter {
                 seed += Math.signum(y - Gdx.graphics.getHeight() * 0.5f);
                 return super.longPress(x, y);
             }
-        }));
-        placeUnits();
+        })
+        );
+        placeMap();
         startTime = TimeUtils.millis();
     }
 
-    public void placeUnits() {
-        enemies.clear();
-        for (int x = land.length - 1, nx = 0; x >= nx; x--) {
-            for (int y = land.length - 1, ny = 0; y >= ny; y--) {
-                land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
-                int hash = hashAll(x, y, seed);
-                if (hash >>> 26 < 5) {
-                    IntList ps = ColorGuardData.placeable.getAt(land[x][y]);
-                    int psi = ps.get((hash >>> 16) % ps.size());
-                    ObjectList<Animation<Sprite>> angles = units.get(psi);
-//                    ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
-                    int angle = ((int) ((-hash & 0xFFFFFF) * 1e-3) & 15) & 3;
-                    AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 430, (hash >>> 6));
-                    enemies.put(Coord.get(x, y), as);
+    public void placeMap() {
+        random.setSeed(seed);
+        do {
+            enemies.clear();
+            for (int x = land.length - 1, nx = 0; x >= nx; x--) {
+                for (int y = land.length - 1, ny = 0; y >= ny; y--) {
+                    land[x][y] = ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed));
+                    int hash = hashAll(x, y, seed);
+                    if (hash >>> 26 < 5) {
+                        IntList ps = ColorGuardData.placeable.getAt(land[x][y]);
+                        int psi = ps.get((hash >>> 16) % ps.size());
+                        ObjectList<Animation<Sprite>> angles = units.get(psi);
+                        ColorGuardData.Unit unit = ColorGuardData.units.get(psi);
+                        int angle = ((int) ((-hash & 0xFFFFFF) * 1e-3) & 15) & 3;
+                        AnimatedSprite as = new AnimatedSprite(angles.get(angle), (x - y) * 40 - 40, (x + y) * 20 + 430,
+                                (hash >>> 6), unit);
+                        enemies.put(Coord.get(x, y), as);
+                    }
                 }
             }
-        }
-
+            if(enemies.isEmpty()) seed = random.nextInt();
+        } while (enemies.isEmpty());
+        heroPosition = enemies.random(random);
+        hero = enemies.remove(heroPosition);
     }
 
     @Override
@@ -165,11 +190,11 @@ public class Main extends ApplicationAdapter {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
             ++seed;
-            placeUnits();
+            placeMap();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             --seed;
-            placeUnits();
+            placeMap();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             Gdx.app.exit();
@@ -204,7 +229,8 @@ public class Main extends ApplicationAdapter {
                 AnimatedSprite as;
                 if((as = enemies.get(Coord.get(x, y))) != null) {
                     as.draw(batch);
-                }
+                } else if(heroPosition.x == x && heroPosition.y == y)
+                    hero.draw(batch);
             }
         }
 //        for (int x = 19; x >= 0; x--) {

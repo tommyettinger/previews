@@ -14,18 +14,21 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class AnimatedSprite extends Sprite {
     public Animation<Sprite> animation;
     public long startTime;
+    public ColorGuardData.Unit unit;
 
     private AnimatedSprite()
     {
         super();
         setColor(0f, 0.5f, 0.5f, 1f);
+        unit = ColorGuardData.units.get(0);
     }
 
-    public AnimatedSprite(Animation<Sprite> animation, float x, float y, int palette) {
+    public AnimatedSprite(Animation<Sprite> animation, float x, float y, int palette, ColorGuardData.Unit unit) {
         super(animation.getKeyFrame(0f));
         this.animation = animation;
         setPosition(x, y);
         setColor(palette % 160 / 255f, 0.5f, 0.5f, 1f);
+        this.unit = unit;
         startTime = TimeUtils.millis();
     }
 
