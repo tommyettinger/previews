@@ -1,6 +1,6 @@
 d:assets:assets:0:application/unknown:1
-t:ColorGuard.atlas:ColorGuard-8f658570d0005aabb536e918db529ff9.atlas:198994:application/unknown:1
-i:ColorGuard.png:ColorGuard-8947c0da685892cb7d30561ca46b8fcf.png:4819939:image/png:1
+t:ColorGuard.atlas:ColorGuard-ac81de2be46b49b70e1efd850e53f22f.atlas:199016:application/unknown:1
+i:ColorGuard.png:ColorGuard-99cd75c542c74d5dc70140fba16e19d1.png:4777959:image/png:1
 i:ColorGuardMasterPalette.png:ColorGuardMasterPalette-9db14df346351f0e5e75094d8ebc5189.png:3511:image/png:1
 t:NanoOKExtended.fnt:NanoOKExtended-687bc35506dc52ba2d57ea17b0686a54.fnt:19788:application/unknown:1
 t:com/badlogic/gdx/graphics/g3d/particles/particles.fragment.glsl:particles.fragment-b90524761fdf09b0a836056d590c30b8.glsl:820:application/unknown:1
