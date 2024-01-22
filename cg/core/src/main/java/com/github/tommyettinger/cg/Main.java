@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -43,8 +44,10 @@ public class Main extends ApplicationAdapter {
     public BitmapFont font;
     public int seed = 1234;
 
+    private GLProfiler profiler;
     @Override
     public void create() {
+        profiler = new GLProfiler(Gdx.graphics);
         shader = new ShaderProgram(stuffSelectVertex, stuffSelectFragmentAltered);
         batch = new SpriteBatch(4000, shader);
         viewport = new ScreenViewport();
@@ -126,6 +129,7 @@ public class Main extends ApplicationAdapter {
                 }
             }
         }
+        profiler.enable();
         startTime = TimeUtils.millis();
     }
 
@@ -218,7 +222,9 @@ public class Main extends ApplicationAdapter {
         font.setColor(0f, 0f, 0.5f, 1f);
         font.draw(batch, Gdx.graphics.getFramesPerSecond() + " fps", camera.position.x - viewport.getWorldWidth() * 0.4f, camera.position.y + viewport.getWorldHeight() * 0.4f);
         batch.end();
-
+        System.out.println("Calls: " + profiler.getCalls() + ", Draw Calls: " + profiler.getDrawCalls() +
+                ", Shader Switches: " + profiler.getShaderSwitches() + ", Vertex Count: " + profiler.getVertexCount());
+        profiler.reset();
     }
 
     public static final String stuffSelectVertex = "attribute vec4 a_position;\n" +
