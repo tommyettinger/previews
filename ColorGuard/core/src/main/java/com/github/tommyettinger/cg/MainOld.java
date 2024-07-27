@@ -48,9 +48,11 @@ public class MainOld extends ApplicationAdapter {
         terrain = new ObjectList<>(4);
         units = new ObjectList<>(ColorGuardData.units.size());
         receives = new ObjectList<>(ColorGuardData.units.size());
-        for (int i = 0; i < 4; i++) {
+        for(String t : ColorGuardData.terrains) {
+            for (int i = 0; i < 4; i++) {
 //            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
-            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_Small_angle" + i), Animation.PlayMode.LOOP));
+                terrain.add(new Animation<>(0.0625f, atlas.createSprites(t+"_angle" + i), Animation.PlayMode.LOOP));
+            }
         }
         for (int i = 0; i < ColorGuardData.units.size(); i++) {
             ColorGuardData.Unit unit = ColorGuardData.units.get(i);
@@ -165,10 +167,11 @@ public class MainOld extends ApplicationAdapter {
         for (int x = upperX, nx = upperX - 27; x >= nx; x--) {
             for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
-                s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
-                s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
                 String q = ColorGuardData.queryTerrain(x, y, seed);
-                s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
+                s = terrain.get(ColorGuardData.terrains.indexOf(q) << 2).getKeyFrame(0);
+                s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
+                s.setColor(0f, 0.7f, 0.35f, 1f);
+//                s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
             }
         }
