@@ -1,12 +1,18 @@
 # ColorGuard
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff).
+A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
-This project was generated with a template including simple application launchers and an empty `ApplicationAdapter` extension.
+This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+
+## Platforms
+
+- `core`: Main module with the application logic shared by all platforms.
+- `lwjgl3`: Primary desktop platform using LWJGL3.
+- `html`: Web platform using GWT and WebGL. Supports only Java projects.
 
 ## Gradle
 
-This project uses [Gradle](http://gradle.org/) to manage dependencies.
+This project uses [Gradle](https://gradle.org/) to manage dependencies.
 The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
 Useful Gradle tasks and flags:
 
@@ -22,7 +28,7 @@ Useful Gradle tasks and flags:
 - `html:dist`: compiles GWT sources. The compiled application can be found at `html/build/dist`: you can use any HTTP server to deploy it.
 - `html:superDev`: compiles GWT sources and runs the application in SuperDev mode. It will be available at [localhost:8080/html](http://localhost:8080/html). Use only during development.
 - `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
+- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/lib`.
 - `lwjgl3:run`: starts the application.
 - `test`: runs unit tests (if any).
 
