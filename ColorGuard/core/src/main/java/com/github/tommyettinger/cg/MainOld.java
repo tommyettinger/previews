@@ -170,7 +170,7 @@ public class MainOld extends ApplicationAdapter {
                 String q = ColorGuardData.queryTerrain(x, y, seed);
                 s = terrain.get(ColorGuardData.terrains.indexOf(q) << 2).getKeyFrame(0);
                 s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
-                s.setColor(0f, 0.7f, 0.35f, 1f);
+                s.setColor(0f, 0.65f + (hash * 0x5p-37f), 0.4f, 1f);
 //                s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
             }
