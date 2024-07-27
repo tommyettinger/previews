@@ -332,7 +332,7 @@ public class MainOld extends ApplicationAdapter {
 
                     "  lab.x = smoothstep(0.0, 1.0, (lab.x + index.y + v_color.g) - 0.75);\n" +
                     "  lab.y = clamp(lab.y * (3.8 * color.b) * (v_color.b), -1.0, 1.0);\n" +
-                    "  lab.z = clamp(lab.z * (3.8 * color.b) * (v_color.b) + (asin(lab.x - 0.6)) * (1.0 / 8.0), -1.0, 1.0);\n" +
+                    "  lab.z = clamp(lab.z * (3.8 * color.b) * (v_color.b) + (asin((lab.x - 1.0) * 0.7)) * (1.0 / 8.0), -1.0, 1.0);\n" +
                     "  lab = mat3(1.0, 1.0, 1.0, +0.3963377774, -0.1055613458, -0.0894841775, +0.2158037573, -0.0638541728, -1.2914855480) * lab;\n" +
                     "  gl_FragColor = vec4(sqrt(clamp(" +
                     "                 mat3(+4.0767245293, -1.2681437731, -0.0041119885, -3.3072168827, +2.6093323231, -0.7034763098, +0.2307590544, -0.3411344290, +1.7068625689) *\n" +
