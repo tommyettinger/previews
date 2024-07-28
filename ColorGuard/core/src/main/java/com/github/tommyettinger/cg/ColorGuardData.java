@@ -4,6 +4,8 @@ import com.github.tommyettinger.digital.BitConversion;
 import com.github.tommyettinger.ds.*;
 import com.github.yellowstonegames.grid.IntPointHash;
 import com.github.yellowstonegames.grid.Noise;
+import com.github.yellowstonegames.grid.NoiseWrapper;
+import com.github.yellowstonegames.grid.PerlueNoise;
 
 import java.util.List;
 
@@ -101,34 +103,24 @@ public class ColorGuardData {
 //            new Unit("Road_Center")
             );
 
+    public static final NoiseWrapper BASE_NOISE = new NoiseWrapper(new PerlueNoise(123), 0x6.23p-7f, NoiseWrapper.FBM, 4);
+    public static final NoiseWrapper RIDGE_NOISE = new NoiseWrapper(new PerlueNoise(123 ^ 0xC965815B), 0x7.09p-6f, NoiseWrapper.RIDGED_MULTI, 3);
+    public static final NoiseWrapper HEAT_NOISE = new NoiseWrapper(new PerlueNoise(123 ^ 0xDE916ABC), 0x6.13p-5f, NoiseWrapper.FBM, 3);
+    public static final NoiseWrapper WET_NOISE = new NoiseWrapper(new PerlueNoise(123 ^ -1), 0x3.13p-6f, NoiseWrapper.DOMAIN_WARP, 2);
+
     public static Terrain queryTerrain(float x, float y, int seed){
         int r = IntPointHash.hashAll(BitConversion.floatToIntBits(x),
                 BitConversion.floatToIntBits(y), seed);
-        Noise n = Noise.instance;
-        n.setNoiseType(Noise.SIMPLEX_FRACTAL);
-        n.setSeed(seed);
-        n.setFrequency(0x6.23p-7f);
-        n.setFractalType(Noise.FBM);
-        n.setFractalOctaves(4);
-        float high = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
-        n.setSeed(seed ^ 0xC965815B);
-        n.setFrequency(0x7.09p-6f);
-        n.setFractalType(Noise.RIDGED_MULTI);
-        n.setFractalOctaves(3);
-        high = high * 0.5f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x)) * 0.5f;
+        BASE_NOISE.setSeed(seed);
+        float high = BASE_NOISE.getNoise(x, y);
+        RIDGE_NOISE.setSeed(seed ^ 0xC965815B);
+        high = high * 0.5f + RIDGE_NOISE.getNoise(x, y) * 0.5f;
         high = high / (((0.4f - 1f) * (1f - Math.abs(high))) + 1.0000001f);
-        n.setSeed(seed ^ 0xDE916ABC);
-        n.setFrequency(0x6.13p-5f);
-        n.setFractalType(Noise.FBM);
-        n.setFractalOctaves(3);
-        float hot = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
+        HEAT_NOISE.setSeed(seed ^ 0xDE916ABC);
+        float hot = HEAT_NOISE.getNoise(x, y);
         hot = hot / (((0.333f - 1f) * (1f - Math.abs(hot))) + 1.0000001f);
-
-        n.setSeed(~seed);
-        n.setFrequency(0x3.13p-6f);
-        n.setFractalType(Noise.FBM);
-        n.setFractalOctaves(2);
-        float wet = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
+        WET_NOISE.setSeed(~seed);
+        float wet = WET_NOISE.getNoise(x, y);
         if(hot < -0.8) return Ice;
         if(high < -0.04) return Ocean;
         if(high < 0.06) return River;
