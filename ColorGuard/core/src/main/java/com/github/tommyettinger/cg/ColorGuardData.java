@@ -94,12 +94,12 @@ public class ColorGuardData {
         Noise n = Noise.instance;
         n.setNoiseType(Noise.SIMPLEX_FRACTAL);
         n.setSeed(seed);
-        n.setFrequency(0x3.23p-7f);
+        n.setFrequency(0x6.23p-7f);
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(4);
         float high = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
         n.setSeed(seed ^ 0xC965815B);
-        n.setFrequency(0x7.09p-7f);
+        n.setFrequency(0x7.09p-6f);
         n.setFractalType(Noise.RIDGED_MULTI);
         n.setFractalOctaves(3);
         high = high * 0.5f + n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x)) * 0.5f;
@@ -116,14 +116,14 @@ public class ColorGuardData {
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(2);
         float wet = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
-        if(hot < -0.75) return "Ice";
+        if(hot < -0.8) return "Ice";
         if(high < -0.04) return "Ocean";
-        if(high < 0.04) return "River";
+        if(high < 0.06) return "River";
         if(high < 0.1) return hot < -0.4f ? "Rocky" : "Coast";
         if(r > 0x7D000000) return "Ruins";
         if(high > 0.7) return "Mountains";
         if(high > 0.5) return "Rocky";
-        if(hot > 0.45 && wet < 0.5) return wet < 0.0 ? "Desert" : "Plains";
+        if(hot > 0.4 && wet < 0.5) return wet < 0.0 ? "Desert" : "Plains";
         if(wet > 0.15) return hot < 0.3 ? "Forest" : "Jungle";
         return "Plains";
     }
