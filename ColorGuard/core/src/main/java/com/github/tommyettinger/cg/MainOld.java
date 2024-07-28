@@ -48,7 +48,7 @@ public class MainOld extends ApplicationAdapter {
         terrain = new ObjectList<>(4);
         units = new ObjectList<>(ColorGuardData.units.size());
         receives = new ObjectList<>(ColorGuardData.units.size());
-        for(String t : ColorGuardData.terrains) {
+        for(ColorGuardData.Terrain t : ColorGuardData.Terrain.ALL) {
             for (int i = 0; i < 4; i++) {
 //            terrain.add(new Animation<>(0.0625f, atlas.createSprites("Terrain_angle" + i), Animation.PlayMode.LOOP));
                 terrain.add(new Animation<>(0.0625f, atlas.createSprites(t+"_angle" + i), Animation.PlayMode.LOOP));
@@ -167,18 +167,18 @@ public class MainOld extends ApplicationAdapter {
         for (int x = upperX, nx = upperX - 27; x >= nx; x--) {
             for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
-                String q = ColorGuardData.queryTerrain(x, y, seed);
-                s = terrain.get(ColorGuardData.terrains.indexOf(q) << 2).getKeyFrame(0);
+                ColorGuardData.Terrain q = ColorGuardData.queryTerrain(x, y, seed);
+                s = terrain.get(q.ordinal() << 2).getKeyFrame(0);
                 s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450 - 4);
                 s.setColor(0f, 0.65f + (hash * 0x3p-37f), 0.4f, 1f);
-//                s.setColor((160 + ColorGuardData.terrains.indexOf(q)) / 255f, 0.5f, 0.5f, 1f);
+//                s.setColor((160 + q.ordinal()) / 255f, 0.5f, 0.5f, 1f);
                 s.draw(batch);
             }
         }
         for (int x = upperX, nx = upperX - 27; x >= nx; x--) {
             for (int y = upperY, ny = upperY - 27; y >= ny; y--) {
                 int hash = IntPointHash.hashAll(x, y, seed);
-                String q = ColorGuardData.queryTerrain(x, y, seed);
+                ColorGuardData.Terrain q = ColorGuardData.queryTerrain(x, y, seed);
                 if(hash >>> 27 < 3) {
 //                if(hash >>> 27 < 5) {
 //                if((x & y & 1) == 1) {
@@ -215,7 +215,7 @@ public class MainOld extends ApplicationAdapter {
 //                int hash = IntPointHash.hashAll(x, y, seed);
 //                s = terrain.get(hash & 3).getKeyFrame(time * 1e-3f);
 //                s.setPosition((x - y) * 60 + 300, (x + y) * 30 - 154);
-//                s.setColor((208 + ColorGuardData.terrains.indexOf(ColorGuardData.queryTerrain(x, y, seed))) / 255f, 0.5f, 0.5f, 1f);
+//                s.setColor((208 + ColorGuardData.queryTerrain(x, y, seed).ordinal()) / 255f, 0.5f, 0.5f, 1f);
 //                s.draw(batch);
 //                if((x & y & 1) == 1) {
 //                    angle = (int) ((time - hash & 0xFFFFFF) * 1e-3) & 15;

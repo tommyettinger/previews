@@ -7,14 +7,23 @@ import com.github.yellowstonegames.grid.Noise;
 
 import java.util.List;
 
+import static com.github.tommyettinger.cg.ColorGuardData.Terrain.*;
+
 public class ColorGuardData {
+    public enum Terrain {
+        Coast, Desert, Forest, Ice, Jungle, Mountains,
+        Ocean, Plains, River, Rocky, Ruins, Volcano;
+
+        public static final Terrain[] ALL = values();
+    }
+
     public static class Unit {
         public String name;
         public String primary;
         public String secondary;
         public int primaryRange, primaryStrength;
         public int secondaryRange, secondaryStrength;
-        public ObjectSet<String> places;
+        public EnumSet places;
 
         public Unit(String name, String placement){
             this(name, null, 0, 0, null, 0, 0, placement);
@@ -30,7 +39,11 @@ public class ColorGuardData {
             this.secondaryRange = secondaryRange;
             this.primaryStrength = primaryStrength;
             this.secondaryStrength = secondaryStrength;
-            places = ObjectSet.with(placement.split(" "));
+            String[] placementNames = placement.split(" ");
+            places = new EnumSet(Terrain.ALL, true);
+            for(String p : placementNames){
+                places.add(Terrain.valueOf(p));
+            }
         }
 
         public boolean hasWeapon(String type){
@@ -69,9 +82,9 @@ public class ColorGuardData {
             new Unit("Cruiser", "Arc_Missile", 2, 4, "Torpedo", 1, 1, "Ocean River"),
             new Unit("Submarine", "Arc_Missile", 3, 1, "Torpedo", 1, 2, "Ocean River"),
             new Unit("Legacy_Plane", "Machine_Gun", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Fighter_Jet", "Forward_Missile", 1, 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Stealth_Jet", "Forward_Missile", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
-            new Unit("Heavy_Bomber", "Bomb_Drop", 1, 3, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins"),
+            new Unit("Fighter_Jet", "Forward_Missile", 1, 1, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins Volcano"),
+            new Unit("Stealth_Jet", "Forward_Missile", 1, 2, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins Volcano"),
+            new Unit("Heavy_Bomber", "Bomb_Drop", 1, 3, "Coast Desert Forest Ice Jungle Mountains Ocean Plains River Rocky Ruins Volcano"),
             new Unit("City", "Coast Desert Forest Ice Jungle Plains"),
             new Unit("Mansion", "Coast Desert Forest Ice Jungle Plains"),
             new Unit("Fort", "Coast Desert Forest Ice Jungle Plains"),
@@ -88,7 +101,7 @@ public class ColorGuardData {
 //            new Unit("Road_Center")
             );
 
-    public static String queryTerrain(float x, float y, int seed){
+    public static Terrain queryTerrain(float x, float y, int seed){
         int r = IntPointHash.hashAll(BitConversion.floatToIntBits(x),
                 BitConversion.floatToIntBits(y), seed);
         Noise n = Noise.instance;
@@ -116,32 +129,29 @@ public class ColorGuardData {
         n.setFractalType(Noise.FBM);
         n.setFractalOctaves(2);
         float wet = n.getConfiguredNoise(x, y, n.getConfiguredNoise(y, x));
-        if(hot < -0.8) return "Ice";
-        if(high < -0.04) return "Ocean";
-        if(high < 0.06) return "River";
-        if(high < 0.1) return hot < -0.4f ? "Rocky" : "Coast";
-        if(r > 0x7D000000) return "Ruins";
-        if(high > 0.7) return "Mountains";
-        if(high > 0.5) return "Rocky";
-        if(hot > 0.4 && wet < 0.5) return wet < 0.0 ? "Desert" : "Plains";
-        if(wet > 0.15) return hot < 0.3 ? "Forest" : "Jungle";
-        return "Plains";
+        if(hot < -0.8) return Ice;
+        if(high < -0.04) return Ocean;
+        if(high < 0.06) return River;
+        if(high < 0.1) return hot < -0.4f ? Rocky : Coast;
+        if(r > 0x7D000000) return Ruins;
+        if(high > 0.82) return Volcano;
+        if(high > 0.72) return Mountains;
+        if(high > 0.55) return Rocky;
+        if(hot > 0.4 && wet < 0.5) return wet < 0.0 ? Desert : Plains;
+        if(wet > 0.15) return hot < 0.3 ? Forest : Jungle;
+        return Plains;
     }
 
-    public static final NumberedSet<String> terrains = NumberedSet.with(
-            "Coast", "Desert", "Forest", "Ice", "Jungle", "Mountains",
-            "Ocean", "Plains", "River", "Rocky", "Ruins", "Volcano");
-
-    public static final ObjectObjectOrderedMap<String, IntList> placeable =
-            new ObjectObjectOrderedMap<>(terrains,
-                    ObjectList.with(
+    public static final ObjectObjectOrderedMap<Terrain, IntList> placeable =
+            new ObjectObjectOrderedMap<>(Terrain.ALL,
+                new IntList[]{
                             new IntList(), new IntList(), new IntList(),
                             new IntList(), new IntList(), new IntList(),
                             new IntList(), new IntList(), new IntList(),
-                            new IntList(), new IntList(), new IntList()));
+                            new IntList(), new IntList(), new IntList()});
 
     static {
-        for (String t : terrains) {
+        for (Terrain t : Terrain.ALL) {
             IntList us = placeable.get(t);
             int ui = 0;
             for (Unit u : units) {
