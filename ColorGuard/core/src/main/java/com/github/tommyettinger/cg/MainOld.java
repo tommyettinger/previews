@@ -329,9 +329,17 @@ public class MainOld extends ApplicationAdapter {
                     "  vec3 lab = mat3(+0.2104542553, +1.9779984951, +0.0259040371, +0.7936177850, -2.4285922050, +0.7827717662, -0.0040720468, +0.4505937099, -0.8086757660) *" +
                     "             pow(mat3(0.4121656120, 0.2118591070, 0.0883097947, 0.5362752080, 0.6807189584, 0.2818474174, 0.0514575653, 0.1074065790, 0.6302613616) \n" +
                     "             * (tgt.rgb * tgt.rgb), forward);\n" +
-
-                    "  lab.x = clamp((lab.x + index.y + v_color.g) - 0.87, 0.0, 1.0);\n" +
-                    "  lab.x = pow(lab.x, 0.666666);\n" +
+                // linear, requires guessing for 0.87 for how light it should be.
+//                    "  lab.x = clamp((lab.x + index.y + v_color.g) - 0.87, 0.0, 1.0);\n" + // makes colors a little off on lightness, mostly good
+                // logistic. no good here.
+//                    "  lab.x = 1.0 / (1.0 + exp(1.5 - lab.x - index.y - v_color.g));\n" + // makes colors saturated, flat
+                // logistic-ish, but base is 36 instead of e. lowering 1.21 will brighten the image.
+                    "  lab.x = 1.0 / (1.0 + pow(36.0, (1.21 - lab.x - index.y - v_color.g)));\n" + // much larger base helps a lot
+                // acos is shaped like the inverse of the logistic function, but it is awful here.
+//                    "  lab.x = acos(-0.666 * (lab.x + index.y + v_color.g) + 1.0) * (1.0 / 3.1416);\n" + // also makes colors saturated, flat
+                // linear and maybe some others need to be raised to the 2/3 power.
+//                    "  lab.x = pow(lab.x, 0.666666);\n" +
+                // old smoothstep on linear made plains blinding bright, among other issues.
 //                    "  lab.x = smoothstep(0.0, 1.0, (lab.x + index.y + v_color.g) - 1.0);\n" +
                     "  lab.y = clamp(lab.y * (3.8 * color.b) * (v_color.b), -1.0, 1.0);\n" +
                     "  lab.z = clamp(lab.z * (3.8 * color.b) * (v_color.b) + asin((lab.x - 1.0) * 0.7) * 0.125 * (1.0 - lab.y * lab.y), -1.0, 1.0);\n" +
