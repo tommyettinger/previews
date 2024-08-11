@@ -330,9 +330,11 @@ public class MainOld extends ApplicationAdapter {
                     "             pow(mat3(0.4121656120, 0.2118591070, 0.0883097947, 0.5362752080, 0.6807189584, 0.2818474174, 0.0514575653, 0.1074065790, 0.6302613616) \n" +
                     "             * (tgt.rgb * tgt.rgb), forward);\n" +
 
-                    "  lab.x = smoothstep(0.0, 1.0, (lab.x + index.y + v_color.g) - 0.75);\n" +
+                    "  lab.x = clamp((lab.x + index.y + v_color.g) - 0.87, 0.0, 1.0);\n" +
+                    "  lab.x = pow(lab.x, 0.666666);\n" +
+//                    "  lab.x = smoothstep(0.0, 1.0, (lab.x + index.y + v_color.g) - 1.0);\n" +
                     "  lab.y = clamp(lab.y * (3.8 * color.b) * (v_color.b), -1.0, 1.0);\n" +
-                    "  lab.z = clamp(lab.z * (3.8 * color.b) * (v_color.b) + (asin((lab.x - 1.0) * 0.7)) * (1.0 / 8.0), -1.0, 1.0);\n" +
+                    "  lab.z = clamp(lab.z * (3.8 * color.b) * (v_color.b) + asin((lab.x - 1.0) * 0.7) * 0.125 * (1.0 - lab.y * lab.y), -1.0, 1.0);\n" +
                     "  lab = mat3(1.0, 1.0, 1.0, +0.3963377774, -0.1055613458, -0.0894841775, +0.2158037573, -0.0638541728, -1.2914855480) * lab;\n" +
                     "  gl_FragColor = vec4(sqrt(clamp(" +
                     "                 mat3(+4.0767245293, -1.2681437731, -0.0041119885, -3.3072168827, +2.6093323231, -0.7034763098, +0.2307590544, -0.3411344290, +1.7068625689) *\n" +
