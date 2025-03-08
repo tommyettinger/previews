@@ -38,7 +38,8 @@ public class MainOld extends ApplicationAdapter {
     public void create() {
 //        Gdx.app.setLogLevel(Application.LOG_INFO);
 //        profiler = new GLProfiler(Gdx.graphics);
-        shader = new ShaderProgram(stuffSelectVertex, stuffSelectFragmentAltered);
+        shader = new ShaderProgram(stuffSelectVertex, stuffSelectFragment);
+//        shader = new ShaderProgram(stuffSelectVertex, stuffSelectFragmentAltered);
         batch = new SpriteBatch(1000, shader);
         viewport = new ScreenViewport();
         camera = viewport.getCamera();
@@ -271,6 +272,7 @@ public class MainOld extends ApplicationAdapter {
                     "             pow(mat3(0.4121656120, 0.2118591070, 0.0883097947, 0.5362752080, 0.6807189584, 0.2818474174, 0.0514575653, 0.1074065790, 0.6302613616) \n" +
                     "             * (tgt.rgb * tgt.rgb), forward);\n" +
                     "  lab.x = clamp(lab.x + index.y + v_color.g - 0.75, 0.0, 1.0);\n" +
+//                    "  lab.x = clamp((lab.x + index.y + v_color.g) * 0.8 - 0.475, -0.2, 1.2);\n" +
                     "  lab.yz = clamp(lab.yz * (2.0 * color.b) * (0.5 + v_color.b), -1.0, 1.0);\n" +
                     "  lab = mat3(1.0, 1.0, 1.0, +0.3963377774, -0.1055613458, -0.0894841775, +0.2158037573, -0.0638541728, -1.2914855480) * lab;\n" +
                     "  gl_FragColor = vec4(sqrt(clamp(" +
