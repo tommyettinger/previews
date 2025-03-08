@@ -17,7 +17,10 @@ import com.github.tommyettinger.ds.IntList;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.yellowstonegames.grid.IntPointHash;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * NOTE: YOU PROBABLY WANT THE "ColorGuard" PROJECT, NOT "cg" !!!
+ * The art here is older and somewhat buggy regarding lighting.
+ */
 public class MainOld extends ApplicationAdapter {
 
     public TextureAtlas atlas;

@@ -6,8 +6,8 @@ dependencies {
 	api "com.github.tommyettinger:digital:$digitalVersion"
 	api "com.github.tommyettinger:funderby:$funderbyVersion"
 	api "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion"
-	api "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion"
-	api "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion"
+	api "com.github.yellowstonegames.SquidSquad:squidcore:$squadVersion"
+	api "com.github.yellowstonegames.SquidSquad:squidgrid:$squadVersion"
 //	api "com.github.yellowstonegames.SquidSquad:SquidPlace:$squadVersion"
 //	api "com.github.yellowstonegames.SquidSquad:SquidPath:$squadVersion"
 

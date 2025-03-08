@@ -28,24 +28,24 @@ gwt {
 }
 
 dependencies {
-//    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-//    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
     implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
     implementation "com.github.tommyettinger:regexodus:$regexodusVersion:sources"
     implementation "com.github.tommyettinger:digital:$digitalVersion:sources"
     implementation "com.github.tommyettinger:funderby:$funderbyVersion:sources"
     implementation "com.github.tommyettinger:juniper:$juniperVersion:sources"
     implementation "com.github.tommyettinger:jdkgdxds:$jdkgdxdsVersion:sources"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidCore:$squadVersion:sources"
-    implementation "com.github.yellowstonegames.SquidSquad:SquidGrid:$squadVersion:sources"
+    implementation "com.github.yellowstonegames.SquidSquad:squidcore:$squadVersion:sources"
+    implementation "com.github.yellowstonegames.SquidSquad:squidgrid:$squadVersion:sources"
     implementation project(':core')
 
 //// You can use the lines below instead of the "com.badlogicgames.gdx:gdx-backend-gwt" dependencies.
 //// If you do, follow the steps at https://github.com/tommyettinger/gdx-backends#gwt-2902100-support
 //// and you can use GWT 2.11.0, which gives you access to Java 11 language features.
 //// These releases use libGDX 1.12.1, and are not compatible with other versions.
-    implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1"
-    implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1:sources"
+//    implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1"
+//    implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1:sources"
     implementation "com.google.jsinterop:jsinterop-annotations:2.0.2:sources"
 }
 

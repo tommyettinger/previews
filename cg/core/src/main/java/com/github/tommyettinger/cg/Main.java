@@ -20,7 +20,10 @@ import com.github.yellowstonegames.grid.Coord;
 import com.github.yellowstonegames.grid.CoordObjectOrderedMap;
 import com.github.yellowstonegames.grid.IntPointHash;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * NOTE: YOU PROBABLY WANT THE "ColorGuard" PROJECT, NOT "cg" !!!
+ * The art here is older and somewhat buggy regarding lighting.
+ */
 public class Main extends ApplicationAdapter {
 
     public TextureAtlas atlas;

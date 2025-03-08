@@ -3,7 +3,6 @@ package com.github.tommyettinger.cg;
 import com.github.tommyettinger.digital.BitConversion;
 import com.github.tommyettinger.ds.*;
 import com.github.yellowstonegames.grid.IntPointHash;
-import com.github.yellowstonegames.grid.Noise;
 import com.github.yellowstonegames.grid.NoiseWrapper;
 import com.github.yellowstonegames.grid.PerlueNoise;
 
