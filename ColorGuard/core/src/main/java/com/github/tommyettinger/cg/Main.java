@@ -13,12 +13,14 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.github.tommyettinger.digital.Hasher;
 import com.github.tommyettinger.ds.IntList;
 import com.github.tommyettinger.ds.ObjectList;
+import com.github.yellowstonegames.grid.BitNoise;
 import com.github.yellowstonegames.grid.IntPointHash;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class MainOld extends ApplicationAdapter {
+public class Main extends ApplicationAdapter {
 
     public TextureAtlas atlas;
     public Texture palettes;
@@ -32,6 +34,7 @@ public class MainOld extends ApplicationAdapter {
     public ObjectList<ObjectList<Animation<Sprite>>> receives;
     public BitmapFont font;
     public int seed = 1234;
+    public BitNoise bit0, bit1, bit2;
 //    private GLProfiler profiler;
 
     @Override
@@ -43,6 +46,9 @@ public class MainOld extends ApplicationAdapter {
         batch = new SpriteBatch(1000, shader);
         viewport = new ScreenViewport();
         camera = viewport.getCamera();
+        bit0 = new BitNoise(Hasher.randomize3(seed), 1, 4);
+        bit1 = new BitNoise(Hasher.randomize3(bit0.seed), 1, 4);
+        bit2 = new BitNoise(Hasher.randomize3(bit1.seed), 1, 4);
         atlas = new TextureAtlas("ColorGuard.atlas");
         font = new BitmapFont(Gdx.files.internal("NanoOKExtended.fnt"), atlas.findRegion("NanoOKExtended"));
         palettes = new Texture("ColorGuardMasterPalette.png");
@@ -204,7 +210,11 @@ public class MainOld extends ApplicationAdapter {
                     }
                     else rec = null;
                     s.setPosition((x - y) * 40 - 40, (x + y) * 20 + 450);
-                    s.setColor((hash >>> 6) % 160 / 255f, 0.5f, 0.5f, 1f);
+                    s.setColor(
+                        (((hash >>> 6) % 20) * 8 + (bit0.noise2D(x, y) & 1
+                            | (bit1.noise2D(x + 1, y + 4) << 1 & 2)
+                            | (bit2.noise2D(x + 3, y + 2) << 2 & 4)
+                        )) / 255f, 0.5f, 0.5f, 1f);
                     s.draw(batch);
                     if(rec != null)
                         rec.draw(batch);
