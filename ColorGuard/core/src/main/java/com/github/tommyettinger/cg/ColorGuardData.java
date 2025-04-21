@@ -104,22 +104,21 @@ public class ColorGuardData {
 
     public static final NoiseWrapper BASE_NOISE = new NoiseWrapper(new PerlueNoise(123), 0x6.23p-7f, NoiseWrapper.FBM, 4);
     public static final NoiseWrapper RIDGE_NOISE = new NoiseWrapper(new PerlueNoise(123 ^ 0xC965815B), 0x7.09p-6f, NoiseWrapper.RIDGED_MULTI, 3);
-    public static final NoiseWrapper HEAT_NOISE = new NoiseWrapper(new PerlueNoise(123 ^ 0xDE916ABC), 0x6.13p-5f, NoiseWrapper.FBM, 3);
+    public static final NoiseWrapper HEAT_NOISE = new NoiseWrapper(new PerlueNoise(123 ^ 0xDE916ABC), 0x6.13p-5f, NoiseWrapper.DOMAIN_WARP, 3);
     public static final NoiseWrapper WET_NOISE = new NoiseWrapper(new PerlueNoise(123 ^ -1), 0x3.13p-6f, NoiseWrapper.DOMAIN_WARP, 2);
 
     public static Terrain queryTerrain(float x, float y, int seed){
         int r = IntPointHash.hashAll(BitConversion.floatToIntBits(x),
                 BitConversion.floatToIntBits(y), seed);
         BASE_NOISE.setSeed(seed);
-        float high = BASE_NOISE.getNoise(x, y);
         RIDGE_NOISE.setSeed(seed ^ 0xC965815B);
-        high = high * 0.5f + RIDGE_NOISE.getNoise(x, y) * 0.5f;
-        high = high / (((0.4f - 1f) * (1f - Math.abs(high))) + 1.0000001f);
+        float high = (BASE_NOISE.getNoise(x, y) + RIDGE_NOISE.getNoise(x, y)) * 0.5f;
+        // for high between -1 and 1, this produces an s-shaped curve also between -1 and 1; it favors central values
+        high = high / (1.6670001f - 0.667f * Math.abs(high));
         HEAT_NOISE.setSeed(seed ^ 0xDE916ABC);
         float hot = HEAT_NOISE.getNoise(x, y);
-        hot = hot / (((0.333f - 1f) * (1f - Math.abs(hot))) + 1.0000001f);
-        WET_NOISE.setSeed(~seed);
-        float wet = WET_NOISE.getNoise(x, y);
+        // like the above for high, but this is z-shaped instead of s-shaped (transposed); it favors extremes
+        hot = hot / (((0.4000001f + 0.6f * Math.abs(hot))));
         if(hot < -0.8) return Ice;
         if(high < -0.04) return Ocean;
         if(high < 0.06) return River;
@@ -128,6 +127,8 @@ public class ColorGuardData {
         if(high > 0.82) return Volcano;
         if(high > 0.72) return Mountains;
         if(high > 0.55) return Rocky;
+        WET_NOISE.setSeed(~seed);
+        float wet = WET_NOISE.getNoise(x, y) - high * 0.6f;
         if(hot > 0.4 && wet < 0.5) return wet < 0.0 ? Desert : Plains;
         if(wet > 0.15) return hot < 0.3 ? Forest : Jungle;
         return Plains;
